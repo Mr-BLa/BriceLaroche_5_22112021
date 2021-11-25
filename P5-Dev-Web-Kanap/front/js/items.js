@@ -13,7 +13,6 @@ function items() {
             return res.json();
         }
     })
-
     
     //retranscrire éléments à l'emplacement approprié//
 //id
@@ -71,7 +70,14 @@ class Carte {
     }
 }
 
-let carte
+let listeProduits = res.json();
+let cartes = New Carte;
+
+for (let i in listeProduits) {
+    produit[i] = cartes[i]
+}
+
+
 /*colors
  * _id
     name
@@ -80,3 +86,29 @@ let carte
     description
     altTxt
  */
+
+    const passengers = [
+        {
+        name: "Will Alexander",
+        ticketNumber: 209542
+        },
+        
+        {
+        name: "Sarah Kate",
+        ticketNumber: 169336
+        },
+        
+        {
+        name: "Audrey Simon",
+        ticketNumber: 779042
+        },
+        
+        {
+        name: "Tao Perkington",
+        ticketNumber: 703911
+        }
+        ]
+        
+        for (let passenger of passengers) {
+           console.log('Embarquement du passager ' + passenger.name + ' avec le ticket numéro ' + passenger.ticketNumber);
+        }
