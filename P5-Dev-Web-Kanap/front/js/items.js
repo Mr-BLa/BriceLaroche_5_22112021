@@ -1,5 +1,8 @@
 //fonction pour récupérer les items de la liste de l'API et les intégrer à la page Index
-//il faudra créer un lien <a> pour chaque objet de la liste. Le faire via une fonction probablement. ou par le dom? à rechercher
+/*il faut créer un lien <a> pour chaque objet de la liste. Le faire via une fonction probablement. ou par le dom? à rechercher
+*
+*/
+
 
 function items() {
     fetch("http://localhost:3000/api/products/")
@@ -55,6 +58,20 @@ function items() {
 }
 
 
+// création Class Carte (pour chaque item)
+class Carte {
+    constructor(colors, id, name, price, imageUrl, description, altTxt) {
+        this.colors = [colors];
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.altTxt = altTxt;
+    }
+}
+
+let carte
 /*colors
  * _id
     name
