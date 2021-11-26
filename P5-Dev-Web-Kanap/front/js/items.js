@@ -4,28 +4,45 @@
 */
 
 
-let kanapItems = async function () {
-    fetch("http://localhost:3000/api/products/")
+const kanapItems = async function () {
+    try {
+        let response = await fetch ('http://localhost:3000/api/products/')
 
-    //récupérer résultats. Si resultats, ok=> retourner le format json//
-    .then(function(res) {
-        if (res.ok) {
-            let result = res.json();
-            return result; 
+        let result = await response.json()
+        
+        if (response.ok) {
+            dataToCards(result)
         }
-    })
-    //Si erreur
-    .catch(function(err) {
-        console.log(err);
-    });
+
+    }
+    catch (e) {
+        console.error(e)
+    }
 }
-let myItems = await kanapItems();
-console.log(myItems);
-console.log(kanapItems());
 
+const dataToCards = async function(data){
+    console.log(data); 
+    for (let index = 0; index < data.length; index++) {
+        const canape = data[index];
 
+        let carteKanap = document.createElement("a");
+        carteKanap.setAttribute("href", "./product.html?id="+canape._id);
+        
+        let articleKanap = document.createElement("article");
+        carteKanap.appendChild(articleKanap);
+        console.log(carteKanap)
+    }
+}
 
+kanapItems()
 
+/*<a href="./product.html?id=42">
+            <article>
+              <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
+              <h3 class="productName">Kanap name1</h3>
+              <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
+            </article>
+          </a>
 
 /*    //retranscrire éléments à l'emplacement approprié//
 //id
