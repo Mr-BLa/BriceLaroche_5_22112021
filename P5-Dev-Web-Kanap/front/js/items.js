@@ -4,17 +4,30 @@
 */
 
 
-function items() {
+let kanapItems = async function () {
     fetch("http://localhost:3000/api/products/")
 
     //récupérer résultats. Si resultats, ok=> retourner le format json//
     .then(function(res) {
         if (res.ok) {
-            return res.json();
+            let result = res.json();
+            return result; 
         }
     })
-    
-    //retranscrire éléments à l'emplacement approprié//
+    //Si erreur
+    .catch(function(err) {
+        console.log(err);
+    });
+}
+let myItems = await kanapItems();
+console.log(myItems);
+console.log(kanapItems());
+
+
+
+
+
+/*    //retranscrire éléments à l'emplacement approprié//
 //id
     .then(function(_id) {
         document
@@ -50,11 +63,8 @@ function items() {
             .textContent = `${description}`;
     })
     
-//Si erreur
-    .catch(function(err) {
-        console.log(err)// Une erreur est survenue
-    });
-}
+
+
 
 
 // création Class Carte (pour chaque item)
