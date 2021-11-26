@@ -70,11 +70,15 @@ class Carte {
     }
 }
 
+// Utilisation res json avec boucle for/in, pour créer des cartes qui nous serviront dans la page index
 let listeProduits = res.json();
-let cartes = New Carte;
 
 for (let i in listeProduits) {
-    produit[i] = cartes[i]
+    for (let produit in listeProduits) {
+        let cartes = [
+            new Carte[i] = (`${produit[i].colors}`, `${produit[i]._id}`, `${produit[i].name}`, `${produit[i].price}`, `${produit[i].imageUrl}`, `${produit[i].description}`, `${produit[i].altTxt}` ) 
+        ];
+        }
 }
 
 
@@ -86,29 +90,3 @@ for (let i in listeProduits) {
     description
     altTxt
  */
-
-    const passengers = [
-        {
-        name: "Will Alexander",
-        ticketNumber: 209542
-        },
-        
-        {
-        name: "Sarah Kate",
-        ticketNumber: 169336
-        },
-        
-        {
-        name: "Audrey Simon",
-        ticketNumber: 779042
-        },
-        
-        {
-        name: "Tao Perkington",
-        ticketNumber: 703911
-        }
-        ]
-        
-        for (let passenger of passengers) {
-           console.log('Embarquement du passager ' + passenger.name + ' avec le ticket numéro ' + passenger.ticketNumber);
-        }
