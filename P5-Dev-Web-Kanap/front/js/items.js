@@ -61,69 +61,6 @@ kanapItems()
           </a>
 
 /*    //retranscrire éléments à l'emplacement approprié//
-//id
-    .then(function(_id) {
-        document
-            .querySelector("#items a")
-            .textContent = "./product.html?id=" + `${_id}`;
-    })
-
-//img url
-    .then(function(imageUrl) {
-        document
-            .querySelector("#items a article img[src]")
-            .textContent = `${imageUrl}`;
-    })
-
-//img alt txt
-    .then(function(altTxt) {
-        document
-            .querySelector("#items a article img[alt]")
-            .textContent = `${altTxt}`;
-    })
-
-//Nom produit
-    .then(function(name) {
-        document
-            .getElementsByClassName("productName")
-            .textContent = `${name}`;
-    })
-
-//Description Produit
-    .then(function(description) {
-        document
-            .getElementsByClassName("productDescription")
-            .textContent = `${description}`;
-    })
-    
-
-
-
-
-// création Class Carte (pour chaque item)
-class Carte {
-    constructor(colors, id, name, price, imageUrl, description, altTxt) {
-        this.colors = [colors];
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.altTxt = altTxt;
-    }
-}
-
-// Utilisation res json avec boucle for/in, pour créer des cartes qui nous serviront dans la page index
-let listeProduits = res.json();
-
-for (let i in listeProduits) {
-    for (let produit in listeProduits) {
-        let cartes = [
-            new Carte[i] = (`${produit[i].colors}`, `${produit[i]._id}`, `${produit[i].name}`, `${produit[i].price}`, `${produit[i].imageUrl}`, `${produit[i].description}`, `${produit[i].altTxt}` ) 
-        ];
-        }
-}
-
 
 /*colors
  * _id
