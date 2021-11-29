@@ -26,8 +26,8 @@ const dataToCards = async function(data){
 
         let carteKanap = document.createElement("a")
         items.appendChild(carteKanap)
-        carteKanap.setAttribute("href", "./product.html?id="+kanapProduct._id)
-
+        carteKanap.setAttribute("href", "./product.html?id=" + kanapProduct._id)
+        
         let articleKanap = document.createElement("article")
         carteKanap.appendChild(articleKanap)
 
