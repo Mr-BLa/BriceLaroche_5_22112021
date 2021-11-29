@@ -1,5 +1,10 @@
+// Récupération Id KanapProduct 
 
+let urlSearchParams = (new URL(window.location.href)).searchParams;
+let productId = urlSearchParams.get('id');
+console.log(productId)
 
+//document.location
 /* SEARCH PARAMS
 var str = "https://waytolearnx.com/t.html?name=alex-babtise&age=25&address=paris";
 var url = new URL(str);
