@@ -8,10 +8,10 @@ const kanapItems = async function () {
     try {
         let response = await fetch ('http://localhost:3000/api/products/')
 
-        let result = await response.json()
+        let listItems = await response.json()
         
         if (response.ok) {
-            dataToCards(result)
+            dataToCards(listItems)
         }
 
     }
@@ -23,14 +23,16 @@ const kanapItems = async function () {
 const dataToCards = async function(data){
     console.log(data); 
     for (let index = 0; index < data.length; index++) {
-        const canape = data[index];
+        const kanapProduct = data[index];
 
         let carteKanap = document.createElement("a");
-        carteKanap.setAttribute("href", "./product.html?id="+canape._id);
-        
+        carteKanap.setAttribute("href", "./product.html?id="+kanapProduct._id);
+
         let articleKanap = document.createElement("article");
         carteKanap.appendChild(articleKanap);
         console.log(carteKanap)
+
+
     }
 }
 
