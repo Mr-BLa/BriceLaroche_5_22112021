@@ -1,8 +1,4 @@
-//fonction pour récupérer les items de la liste de l'API et les intégrer à la page Index
-/*il faut créer un lien <a> pour chaque objet de la liste. Le faire via une fonction probablement. ou par le dom? à rechercher
-*
-*/
-
+//fonction pour récupérer les items de la liste de l'API 
 
 const kanapItems = async function () {
     try {
@@ -20,8 +16,11 @@ const kanapItems = async function () {
     }
 }
 
+
+//fonction pour intégrer les éléments de l'API à la page index
+
 const dataToCards = async function(data){
-    console.log(data) 
+
     for (let index = 0; index < data.length; index++) {
         const kanapProduct = data[index]
 
@@ -52,22 +51,3 @@ const dataToCards = async function(data){
 }
 
 kanapItems()
-
-/*<a href="./product.html?id=42">
-            <article>
-              <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
-              <h3 class="productName">Kanap name1</h3>
-              <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
-            </article>
-          </a>
-
-/*    //retranscrire éléments à l'emplacement approprié//
-
-/*colors
- * _id
-    name
-    price
-    imageUrl
-    description
-    altTxt
- */
