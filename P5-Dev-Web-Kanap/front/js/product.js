@@ -2,35 +2,84 @@
 
 let urlSearchParams = (new URL(window.location.href)).searchParams;
 let productId = urlSearchParams.get('id');
-console.log(productId)
 
-//document.location
-/* SEARCH PARAMS
-var str = "https://waytolearnx.com/t.html?name=alex-babtise&age=25&address=paris";
-var url = new URL(str);
-var name = url.searchParams.get("name");
-console.log(name);
-* sortie = alex-babtise
-*/
+
+
+
+// Récupération data de l'API en fonction de l'ID des Produits
+
+const searchKanapProduct = async function () {
+    try {
+        let responseApi = await fetch ('http://localhost:3000/api/products/' + productId )
+
+        let dataProduct = await responseApi.json()
+
+        if (responseApi.ok) {
+            kanapProduct(dataProduct)
+        }
+
+    }
+    catch (e) {
+        console.error(e)
+    }
+}
+
+
+
+
+//fonction pour intégrer les éléments de l'API à la page product
+
+const kanapProduct = async function(data){
+        
+    let carteProduct = document.createElement("article")
+    document.querySelector("section.item").appendChild(carteProduct)
+    console.log(carteProduct)
+
+    ;
+    /*let divImgProduct = document.createElement("div")
+    carteProduct.appendChild(divImgProduct)
+    divImgProduct.classList.add("item__img")
+
+    let imgProduct = document.createElement("img")
+    divImgProduct.appendChild(imgProduct)
+    imgProduct.setAttribute("src", kanapProduct.imageUrl)
+    imgProduct.setAttribute("alt", kanapProduct.altTxt)
+
+    console.log(carteProduct)*/
+}
+
+searchKanapProduct()
+
+
 
 
 /* STRUCTURE PRODUCT.HTML
 <section class="item">
           <article>
+
+
+
             <div class="item__img">
               <img src="../images/logo.png" alt="Photographie d'un canapé">
             </div>
+
+
+
+
             <div class="item__content">
+
 
               <div class="item__content__titlePrice">
                 <h1 id="title"> Nom du produit </h1>
                 <p>Prix : <span id="price"> 42 </span>€</p>
               </div>
 
+
               <div class="item__content__description">
                 <p class="item__content__description__title">Description :</p>
                 <p id="description"> Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
               </div>
+
 
               <div class="item__content__settings">
                 <div class="item__content__settings__color">
@@ -47,6 +96,8 @@ console.log(name);
                   <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
                 </div>
               </div>
+
+
 
               <div class="item__content__addButton">
                 <button id="addToCart">Ajouter au panier</button>
