@@ -24,28 +24,34 @@ const dataToCards = async function(data){
     for (let index = 0; index < data.length; index++) {
         const kanapProduct = data[index]
 
+
         let carteKanap = document.createElement("a")
         items.appendChild(carteKanap)
         carteKanap.setAttribute("href", "./product.html?id=" + kanapProduct._id)
         
+
         let articleKanap = document.createElement("article")
         carteKanap.appendChild(articleKanap)
+
 
         let imageKanap = document.createElement("img")
         articleKanap.appendChild(imageKanap)
         imageKanap.setAttribute("src", kanapProduct.imageUrl)
         imageKanap.setAttribute("alt", kanapProduct.altTxt)
 
+
         let nameKanap = document.createElement("h3")
         articleKanap.appendChild(nameKanap)
         nameKanap.classList.add("productName")
         nameKanap.textContent = kanapProduct.name
+
 
         let descriptionKanap = document.createElement("p")
         articleKanap.appendChild(descriptionKanap)
         descriptionKanap.classList.add("productDescription")
         descriptionKanap.textContent = kanapProduct.description
 
+        
         console.log(carteKanap)
     }
 }
