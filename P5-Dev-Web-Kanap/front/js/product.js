@@ -30,78 +30,123 @@ const searchKanapProduct = async function () {
 //fonction pour intégrer les éléments de l'API à la page product
 
 const kanapProduct = async function(data){
+    const specProduct = data
         
+
+    //article
     let carteProduct = document.createElement("article")
     document.querySelector("section.item").appendChild(carteProduct)
-    console.log(carteProduct)
 
-    ;
-    /*let divImgProduct = document.createElement("div")
-    carteProduct.appendChild(divImgProduct)
-    divImgProduct.classList.add("item__img")
 
+
+    //div img
+    let divImg = document.createElement("div")
+    carteProduct.appendChild(divImg)
+    divImg.classList.add("item__img")
+
+    //img
     let imgProduct = document.createElement("img")
-    divImgProduct.appendChild(imgProduct)
-    imgProduct.setAttribute("src", kanapProduct.imageUrl)
-    imgProduct.setAttribute("alt", kanapProduct.altTxt)
+    divImg.appendChild(imgProduct)
+    imgProduct.setAttribute("src", specProduct.imageUrl)
+    imgProduct.setAttribute("alt", specProduct.altTxt)
 
-    console.log(carteProduct)*/
+
+
+    //Div MÈRE
+    let infos = document.createElement("div")
+    carteProduct.appendChild(infos)
+    infos.classList.add("item__content")
+
+    
+
+    //Div Titre/Prix
+    let price = document.createElement("div")
+    infos.appendChild(price)
+    price.classList.add("item__content__titlePrice")
+
+    //Titre
+    let nameProduct = document.createElement("h1")
+    price.appendChild(nameProduct)
+    nameProduct.id = "title"
+    nameProduct.textContent = specProduct.name
+
+    //p Prix
+    let priceTxt = document.createElement("p")
+    price.appendChild(priceTxt)
+    
+    //span ---->>>>  !!!DEFAUT AFFICHAGE!!!  <<<<----
+    let priceProduct = document.createElement("span")
+    priceTxt.appendChild(priceProduct)
+    priceProduct.id = "price"
+    priceProduct.textContent = specProduct.price
+
+    //p txt
+    priceTxt.textContent = "Prix : " + priceProduct.textContent +" €"
+
+
+
+    //Div Description
+    let description = document.createElement("div")
+    infos.appendChild(description)
+    description.classList.add("item__content__description")
+
+    //p description titre
+    let descriptionTitre = document.createElement("p")
+    description.appendChild(descriptionTitre)
+    descriptionTitre.classList.add("item__content__description__title")
+    descriptionTitre.textContent = "Description :"
+
+    //p description
+    let descriptionProduct = document.createElement("p")
+    description.appendChild(descriptionProduct)
+    descriptionProduct.id = "description" 
+    descriptionProduct.textContent = specProduct.description
+
+
+
+    //Div Paramètres
+    let parametres = document.createElement("div")
+    infos.appendChild(parametres)
+    parametres.classList.add("item__content__settings")
+
+    //Div Parametres Couleurs
+    let colorProduct = document.createElement("div")
+    parametres.appendChild(colorProduct)
+    colorProduct.classList.add("item__content__settings__color")
+
+
+
+
+
+    console.log(carteProduct)
 }
 
 searchKanapProduct()
 
 
 
+/*          <div class="item__content__settings">
 
-/* STRUCTURE PRODUCT.HTML
-<section class="item">
-          <article>
+            <div class="item__content__settings__color">
+                                <label for="color-select">Choisir une couleur :</label>
+                                <select name="color-select" id="colors">
+                                    <option value="">--SVP, choisissez une couleur --</option>
+                                    <option value="vert">vert</option>
+                                    <option value="blanc">blanc</option>
+                                </select>
+                                </div>
 
-
-
-            <div class="item__img">
-              <img src="../images/logo.png" alt="Photographie d'un canapé">
-            </div>
-
-
-
-
-            <div class="item__content">
-
-
-              <div class="item__content__titlePrice">
-                <h1 id="title"> Nom du produit </h1>
-                <p>Prix : <span id="price"> 42 </span>€</p>
-              </div>
-
-
-              <div class="item__content__description">
-                <p class="item__content__description__title">Description :</p>
-                <p id="description"> Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
-              </div>
-
-
-              <div class="item__content__settings">
-                <div class="item__content__settings__color">
-                  <label for="color-select">Choisir une couleur :</label>
-                  <select name="color-select" id="colors">
-                      <option value="">--SVP, choisissez une couleur --</option>
-                      <option value="vert">vert</option>
-                      <option value="blanc">blanc</option>
-                  </select>
-                </div>
-
-                <div class="item__content__settings__quantity">
-                  <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
-                  <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
-                </div>
-              </div>
+            <div class="item__content__settings__quantity">
+                                <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
+                                <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
+                                </div>
+                                </div>
 
 
 
               <div class="item__content__addButton">
-                <button id="addToCart">Ajouter au panier</button>
-              </div>
+                                <button id="addToCart">Ajouter au panier</button>
+                                </div>
 
             </div>
           </article>
