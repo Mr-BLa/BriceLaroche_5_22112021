@@ -140,7 +140,7 @@ const kanapProduct = async function(data){
         optionColor.value = color 
         optionColor.textContent = color 
         selectColors.appendChild(optionColor)
-    });
+    })
 
 
     //Div Paramètres Quantité
@@ -148,8 +148,21 @@ const kanapProduct = async function(data){
     parametres.appendChild(quantityProduct)
     quantityProduct.classList.add("item__content__settings__quantity")
 
+    //Label Quantité
+    let labelQuantity = document.createElement("label")
+    quantityProduct.appendChild(labelQuantity)
+    labelQuantity.setAttribute("for", "itemQuantity")
+    labelQuantity.textContent = "Nombre d'article(s) (1-100) :"
 
-
+    //Input Quantité
+    let selectQuantity = document.createElement("input")
+    quantityProduct.appendChild(selectQuantity)
+    selectQuantity.setAttribute("type", "number")
+    selectQuantity.setAttribute("name", "itemQuantity")
+    selectQuantity.min = 1 
+    selectQuantity.max = 100 
+    selectQuantity.value = 0 
+    selectQuantity.id = "quantity"
 
     console.log(carteProduct)
 }
@@ -158,9 +171,6 @@ searchKanapProduct()
 
 
 /*          <div class="item__content__settings">
-
-            <div class="item__content__settings__color">
-
             <div class="item__content__settings__quantity">
                                 <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
                                 <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
