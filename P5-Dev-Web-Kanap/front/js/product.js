@@ -177,11 +177,6 @@ const kanapProduct = async function(data){
     buttonAdd.id = "addToCart"
     buttonAdd.textContent = "Ajouter au panier"
 
-
-    console.log(carteProduct)
 }
 
 searchKanapProduct()
-
-/* 
-*/

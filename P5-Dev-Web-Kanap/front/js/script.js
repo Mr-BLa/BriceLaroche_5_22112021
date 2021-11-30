@@ -51,8 +51,6 @@ const dataToCards = async function(data){
         descriptionKanap.classList.add("productDescription")
         descriptionKanap.textContent = kanapProduct.description
 
-        
-        console.log(carteKanap)
     }
 }
 
