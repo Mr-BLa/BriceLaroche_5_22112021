@@ -109,6 +109,7 @@ const kanapProduct = async function(data){
     infos.appendChild(parametres)
     parametres.classList.add("item__content__settings")
 
+
     //Div Parametres Couleurs
     let colorProduct = document.createElement("div")
     parametres.appendChild(colorProduct)
@@ -127,12 +128,12 @@ const kanapProduct = async function(data){
     selectColors.id = "colors"
     
     //Options Couleurs
-    let choixColor = document.createElement("option")
-    selectColors.appendChild(choixColor)
-    choixColor.value = "Choix"
-    choixColor.textContent = "--SVP, Choisissez une couleur --"
+    let choiceColor = document.createElement("option")
+    selectColors.appendChild(choiceColor)
+    choiceColor.value = "Choix"
+    choiceColor.textContent = "--SVP, Choisissez une couleur --"
 
-    //Boucle pour intégrer array couleurs API
+    //Boucle pour intégrer API-array couleurs 
     const colors = specProduct.colors
     colors.forEach(color => {
         let optionColor = document.createElement("option")
@@ -140,6 +141,15 @@ const kanapProduct = async function(data){
         optionColor.textContent = color 
         selectColors.appendChild(optionColor)
     });
+
+
+    //Div Paramètres Quantité
+    let quantityProduct = document.createElement("div")
+    parametres.appendChild(quantityProduct)
+    quantityProduct.classList.add("item__content__settings__quantity")
+
+
+
 
     console.log(carteProduct)
 }
@@ -150,13 +160,6 @@ searchKanapProduct()
 /*          <div class="item__content__settings">
 
             <div class="item__content__settings__color">
-                                <label for="color-select">Choisir une couleur :</label>
-                                <select name="color-select" id="colors">
-                                    <option value="">--SVP, choisissez une couleur --</option>
-                                    <option value="vert">vert</option>
-                                    <option value="blanc">blanc</option>
-                                </select>
-                                </div>
 
             <div class="item__content__settings__quantity">
                                 <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
