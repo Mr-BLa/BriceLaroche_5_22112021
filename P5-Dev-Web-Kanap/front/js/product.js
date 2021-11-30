@@ -164,26 +164,24 @@ const kanapProduct = async function(data){
     selectQuantity.value = 0 
     selectQuantity.id = "quantity"
 
+
+
+    // Div Button 
+    let addCart = document.createElement("div")
+    infos.appendChild(addCart)
+    addCart.classList.add("item__content__addButton")
+
+    //Button Ajout au Panier 
+    let buttonAdd = document.createElement("button")
+    addCart.appendChild(buttonAdd)
+    buttonAdd.id = "addToCart"
+    buttonAdd.textContent = "Ajouter au panier"
+
+
     console.log(carteProduct)
 }
 
 searchKanapProduct()
 
-
-/*          <div class="item__content__settings">
-            <div class="item__content__settings__quantity">
-                                <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
-                                <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
-                                </div>
-                                </div>
-
-
-
-              <div class="item__content__addButton">
-                                <button id="addToCart">Ajouter au panier</button>
-                                </div>
-
-            </div>
-          </article>
-        </section>
+/* 
 */
