@@ -114,15 +114,37 @@ const kanapProduct = async function(data){
     parametres.appendChild(colorProduct)
     colorProduct.classList.add("item__content__settings__color")
 
+    //Label Séléction Couleurs 
+    let labelColors = document.createElement("label")
+    colorProduct.appendChild(labelColors)
+    labelColors.setAttribute("for", "color-select")
+    labelColors.textContent = "Choisir une couleur :"
 
+    //Select Couleurs
+    let selectColors = document.createElement("select")
+    colorProduct.appendChild(selectColors)
+    selectColors.setAttribute("name", "color-select")
+    selectColors.id = "colors"
+    
+    //Options Couleurs
+    let choixColor = document.createElement("option")
+    selectColors.appendChild(choixColor)
+    choixColor.value = "Choix"
+    choixColor.textContent = "--SVP, Choisissez une couleur --"
 
-
+    //Boucle pour intégrer array couleurs API
+    const colors = specProduct.colors
+    colors.forEach(color => {
+        let optionColor = document.createElement("option")
+        optionColor.value = color 
+        optionColor.textContent = color 
+        selectColors.appendChild(optionColor)
+    });
 
     console.log(carteProduct)
 }
 
 searchKanapProduct()
-
 
 
 /*          <div class="item__content__settings">
