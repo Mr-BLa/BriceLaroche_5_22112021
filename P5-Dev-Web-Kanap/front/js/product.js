@@ -193,8 +193,11 @@ searchKanapProduct()
 */
 
 //Ecoute du bouton "Ajout au panier"
-document.getElementById("addToCart")
-document.addEventListener("click", function() {
+
+
+let buttonCart = document.getElementById("addToCart")
+buttonCart.addEventListener("click", function(event) {
+        event.stopPropagation()
         let selectedColor = document.getElementById("colors").value
 
         let selectedQuantity = document.getElementById("quantity").value
@@ -210,9 +213,6 @@ document.addEventListener("click", function() {
         console.log(selectedProduct)
 
         localStorage.setItem("obj", selectedProduct)
-
-        
-        
 })
 
 
