@@ -192,13 +192,6 @@ searchKanapProduct()
 *       Récupération des paramètres séléctionnés pour le produit affiché, lorsque click sur le bouton "Ajout au panier"
 */
 
-
-
-//document.getElementById("quantity")
-//document.getElementById("colors"),
-
-
-
 //Ecoute du bouton "Ajout au panier"
 document.getElementById("addToCart")
 document.addEventListener("click", function() {
@@ -206,16 +199,21 @@ document.addEventListener("click", function() {
 
         let selectedQuantity = document.getElementById("quantity").value
 
-        let selectedParams = {
+        let selectedParamJson = {
             productId,
             selectedQuantity,
             selectedColor,
         }
-        console.log(selectedParams)
+        console.log(selectedParamJson)
+        
+        let selectedProduct = JSON.stringify(selectedParamJson)
+        console.log(selectedProduct)
 
+        localStorage.setItem("obj", selectedProduct)
+
+        
+        
 })
-
-
 
 
 /*
