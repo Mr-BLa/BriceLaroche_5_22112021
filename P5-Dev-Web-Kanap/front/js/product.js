@@ -1,4 +1,6 @@
-// Récupération Id KanapProduct 
+/*
+*       Récupération Id KanapProduct 
+*/
 
 let urlSearchParams = (new URL(window.location.href)).searchParams;
 let productId = urlSearchParams.get('id');
@@ -6,7 +8,9 @@ let productId = urlSearchParams.get('id');
 
 
 
-// Récupération data de l'API en fonction de l'ID des Produits
+/*
+*       Récupération data de l'API en fonction de l'ID des Produits
+*/
 
 const searchKanapProduct = async function () {
     try {
@@ -26,8 +30,9 @@ const searchKanapProduct = async function () {
 
 
 
-
-//fonction pour intégrer les éléments de l'API à la page product
+/*
+*       fonction pour intégrer les éléments de l'API à la page product
+*/
 
 const kanapProduct = async function(data){
     const specProduct = data
@@ -180,3 +185,45 @@ const kanapProduct = async function(data){
 }
 
 searchKanapProduct()
+
+
+
+/*
+*       Récupération des paramètres séléctionnés pour le produit affiché, lorsque click sur le bouton "Ajout au panier"
+*/
+
+
+
+//document.getElementById("quantity")
+//document.getElementById("colors"),
+
+
+
+//Ecoute du bouton "Ajout au panier"
+document.getElementById("addToCart")
+document.addEventListener("click", function() {
+        let selectedColor = document.getElementById("colors").value
+
+        let selectedQuantity = document.getElementById("quantity").value
+
+        let selectedParams = {
+            productId,
+            selectedQuantity,
+            selectedColor,
+        }
+        console.log(selectedParams)
+
+})
+
+
+
+
+/*
+*let objJson = {
+    prenom : "dany",
+    age : 30,
+    taille : 170
+}
+let objLinea = JSON.stringify(objJson);
+localStorage.setItem("obj",objLinea);
+*/
