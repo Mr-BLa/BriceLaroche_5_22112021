@@ -205,7 +205,7 @@ document.addEventListener("click", function() {
             selectedColor,
         }
         console.log(selectedParamJson)
-        
+
         let selectedProduct = JSON.stringify(selectedParamJson)
         console.log(selectedProduct)
 
@@ -217,11 +217,5 @@ document.addEventListener("click", function() {
 
 
 /*
-*let objJson = {
-    prenom : "dany",
-    age : 30,
-    taille : 170
-}
-let objLinea = JSON.stringify(objJson);
-localStorage.setItem("obj",objLinea);
+*
 */
