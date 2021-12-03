@@ -194,8 +194,6 @@ searchKanapProduct()
 
 //Ecoute du bouton "Ajout au panier"
 
-
-
 let onClick = (event) => {
     event.stopPropagation()
     let selectedColor = document.getElementById("colors").value
@@ -207,13 +205,11 @@ let onClick = (event) => {
         selectedQuantity,
         selectedColor,
     }
-    console.log(selectedParamJson)
 
     let selectedProduct = JSON.stringify(selectedParamJson)
-    console.log(selectedProduct)
-
     localStorage.setItem("obj", selectedProduct)
+    console.log(localStorage)
 }
 
-document.getElementById("addToCart")
-this.addEventListener("click", onClick)
+const button = document.getElementById("addToCart")
+button.addEventListener("click", onClick)
