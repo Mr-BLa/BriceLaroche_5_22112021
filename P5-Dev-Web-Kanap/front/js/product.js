@@ -194,7 +194,7 @@ searchKanapProduct()
 
 //Ecoute du bouton "Ajout au panier"
 
-let buttonCart = document.getElementById("addToCart")
+
 
 let onClick = (event) => {
     event.stopPropagation()
@@ -215,4 +215,5 @@ let onClick = (event) => {
     localStorage.setItem("obj", selectedProduct)
 }
 
-buttonCart.addEventListener("click", onClick)
+document.getElementById("addToCart")
+this.addEventListener("click", onClick)
