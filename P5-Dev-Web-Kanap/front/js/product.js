@@ -78,15 +78,13 @@ const kanapProduct = async function(data){
     //p Prix
     let priceTxt = document.createElement("p")
     price.appendChild(priceTxt)
-    
-    //span ---->>>>  !!!DEFAUT AFFICHAGE!!!  <<<<----
-    let priceProduct = document.createElement("span")
-    priceTxt.appendChild(priceProduct)
-    priceProduct.id = "price"
-    priceProduct.textContent = specProduct.price
-
     //p txt
-    priceTxt.textContent = "Prix : " + priceProduct.textContent +" €"
+    priceTxt.innerHTML = "Prix : <span id=\"price\">" + specProduct.price + "</span> €"
+
+
+
+
+
 
 
 
@@ -189,27 +187,61 @@ searchKanapProduct()
 
 
 /*
-*       Récupération des paramètres séléctionnés pour le produit affiché, lorsque click sur le bouton "Ajout au panier"
+*      "Ajout au panier"
 */
 
-//Ecoute du bouton "Ajout au panier"
 
-let onClick = (event) => {
-    event.stopPropagation()
-    let selectedColor = document.getElementById("colors").value
+// Fonction pour s'assurer que le document est correctement généré avant de récupérer les données. 
 
-    let selectedQuantity = document.getElementById("quantity").value
-
-    let selectedParamJson = {
-        productId,
-        selectedQuantity,
-        selectedColor,
+const docReady = function (fn) {
+    // see if DOM is already available
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1)
+    } else {
+        document.addEventListener('DOMContentLoaded', fn)
     }
-
-    let selectedProduct = JSON.stringify(selectedParamJson)
-    localStorage.setItem("obj", selectedProduct)
-    console.log(localStorage)
 }
 
-const button = document.getElementById("addToCart")
-button.addEventListener("click", onClick)
+docReady(function() {
+    const button = document.getElementById("addToCart")
+    button.addEventListener("click", function(e){
+    // Récupération paramètres du Produit à ajouter au panier
+        let selectedColor = document.getElementById("colors").value
+    
+        let selectedQuantity = document.getElementById("quantity").value
+    
+        let selectedParam = {
+            productId,
+            selectedQuantity,
+            selectedColor,
+        }
+
+
+    //récupérer les données présentes dans le localStorage
+        let getProductStorage = () => {
+            Object.keys(localStorage).forEach((key) => {
+                console.log(localStorage.getItem(key))
+            })
+        }
+    //convertir datas des produits séléctionnés en json, puis les save dans le localStorage 
+        let pushProductInStorage = () => {
+            let selectedProduct = JSON.stringify(selectedParam)
+            localStorage.setItem("obj", selectedProduct)
+        }
+
+    // Vérification datas déjà sauvegardés ds local storage
+        let storageCheck = () => {
+            if (localStorage.length > 0) {
+                getProductStorage()
+
+                pushProductInStorage()
+
+            } else {  
+                //Ajout du produit séléctionné au local storage
+                pushProductInStorage()
+            }
+        storageCheck()
+        }
+    })
+})
