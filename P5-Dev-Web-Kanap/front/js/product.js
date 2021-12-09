@@ -203,45 +203,54 @@ const docReady = function (fn) {
     }
 }
 
+
+//récupérer les données présentes dans le localStorage
+const getProductStorage = () => {
+    Object.keys(localStorage).forEach((key) => {
+        console.log(localStorage.getItem(key))
+    })
+}
+
+//convertir datas des produits séléctionnés en json, puis les save dans le localStorage 
+const pushProductInStorage = (data) => {
+    
+    if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
+        let arrayKanap = []
+        arrayKanap.push(JSON.stringify(data))
+        localStorage.setItem("kanap", arrayKanap)
+        console.log(localStorage)
+    } else { 
+        
+        let kanapInLocalStorage = []
+        kanapInLocalStorage.push(JSON.parse(localStorage.getItem("kanap")))
+        kanapInLocalStorage.push(JSON.stringify(data))
+        console.log(kanapInLocalStorage)
+        localStorage.setItem("kanap", kanapInLocalStorage)
+    }
+}
+
+
+
+// Vérification datas déjà sauvegardés ds local storage
+
+
+
 docReady(function() {
     const button = document.getElementById("addToCart")
-    button.addEventListener("click", function(e){
-    // Récupération paramètres du Produit à ajouter au panier
-        let selectedColor = document.getElementById("colors").value
-    
-        let selectedQuantity = document.getElementById("quantity").value
-    
-        let selectedParam = {
-            productId,
-            selectedQuantity,
-            selectedColor,
-        }
-
-
-    //récupérer les données présentes dans le localStorage
-        let getProductStorage = () => {
-            Object.keys(localStorage).forEach((key) => {
-                console.log(localStorage.getItem(key))
-            })
-        }
-    //convertir datas des produits séléctionnés en json, puis les save dans le localStorage 
-        let pushProductInStorage = () => {
-            let selectedProduct = JSON.stringify(selectedParam)
-            localStorage.setItem("obj", selectedProduct)
-        }
-
-    // Vérification datas déjà sauvegardés ds local storage
-        let storageCheck = () => {
-            if (localStorage.length > 0) {
-                getProductStorage()
-
-                pushProductInStorage()
-
-            } else {  
-                //Ajout du produit séléctionné au local storage
-                pushProductInStorage()
+    document.addEventListener('click',function(e){
+        if(e.target && e.target.id== 'addToCart') {
+            // Récupération paramètres du Produit à ajouter au panier
+            let selectedColor = document.getElementById("colors").value
+            
+            let selectedQuantity = document.getElementById("quantity").value
+        
+            let selectedParam = {
+                productId,
+                selectedQuantity,
+                selectedColor,
             }
-        storageCheck()
+            pushProductInStorage(selectedParam)
         }
     })
 })
+
