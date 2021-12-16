@@ -190,7 +190,6 @@ searchKanapProduct()
 *      "Ajout au panier"
 */
 
-
 // Fonction pour s'assurer que le document est correctement généré avant de récupérer les données. 
 const docReady = function (fn) {
     // voir si DOM est disponible
