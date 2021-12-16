@@ -214,6 +214,7 @@ const pushProductInStorage = (data) => {
         console.log(arrayKanap)
         console.log(localStorage)
 
+
     } else { 
         //on récupère les datas du local storage => tableau.
         if (localStorage.getItem("kanap")) {
@@ -236,7 +237,7 @@ const pushProductInStorage = (data) => {
                     console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
                     console.log(alreadyInCart[0])
 
-                    //retrouver l'élément doublon dans arrayKanap et modifier sa sommer
+                    //retrouver l'élément doublon dans arrayKanap et modifier sa somme
                     const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
                     console.log(elementAlreadyInArrayKanap)
                     arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum;
@@ -247,7 +248,7 @@ const pushProductInStorage = (data) => {
 
 
             localStorage.setItem("kanap", JSON.stringify(arrayKanap))
-            console.log("produit ajouté => ", data)
+            console.log("produit ajouté: ", data)
             alert("Votre produit est ajouté au panier.")
         }
     }
