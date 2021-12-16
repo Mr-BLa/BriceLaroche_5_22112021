@@ -210,8 +210,6 @@ const pushProductInStorage = (data) => {
         arrayKanap.push(data)
         localStorage.setItem("kanap", JSON.stringify(arrayKanap))
         alert("Votre produit est ajouté au panier.")
-        console.log(arrayKanap)
-        console.log(localStorage)
 
 
     } else { 
@@ -223,25 +221,17 @@ const pushProductInStorage = (data) => {
             const alreadyInCart = arrayKanap.filter((kanap) => 
                 kanap.selectedColor === data.selectedColor && 
                 kanap.productId === data.productId)
-            
-            console.log(alreadyInCart.length)
-            console.log(data.selectedColor)
-            console.log(arrayKanap)
 
+            console.log(arrayKanap)
 
             //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
                 if (alreadyInCart.length) {
                     let sum = parseInt(data.selectedQuantity) + parseInt(alreadyInCart[0].selectedQuantity)
-                    console.log(sum)
-                    console.log(alreadyInCart[0].selectedQuantity)
                     console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
-                    console.log(alreadyInCart[0])
 
                     //retrouver l'élément doublon dans arrayKanap et modifier sa somme
                     const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
-                    console.log(elementAlreadyInArrayKanap)
                     arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum + ""
-
                 } else {
                     arrayKanap.push(data)
                 }
@@ -249,6 +239,7 @@ const pushProductInStorage = (data) => {
 
             localStorage.setItem("kanap", JSON.stringify(arrayKanap))
             console.log("produit ajouté: ", data)
+            console.log(localStorage)
             alert("Votre produit est ajouté au panier.")
         }
     }

@@ -3,21 +3,23 @@
 */
 
 
-
-let getDataFromLocalStorage = (data) => {
+let getDataFromLocalStorage = () => {
     let arrayCart = []
 
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
-        alert("Le panier est vide")
+        alert("Votre panier est vide")
+
     } else {
         if (localStorage.getItem("kanap")) {
             arrayCart = JSON.parse(localStorage.getItem("kanap"))
-            console.log(localStorage)
-            console.log(arrayCart)
         }
     }
 
+    for (let i = 0; i < arrayCart.length; i++) {
+        const kanapInCart = arrayCart[i]
+        console.log(kanapInCart)
+    }
 }
 
-
+getDataFromLocalStorage()
 
