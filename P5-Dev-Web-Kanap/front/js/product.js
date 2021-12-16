@@ -231,7 +231,8 @@ const pushProductInStorage = (data) => {
 
             //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
                 if (alreadyInCart.length) {
-                    let sum = data.selectedQuantity + alreadyInCart[0].selectedQuantity
+                    let sum = parseInt(data.selectedQuantity) + parseInt(alreadyInCart[0].selectedQuantity)
+                    console.log(sum)
                     console.log(alreadyInCart[0].selectedQuantity)
                     console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
                     console.log(alreadyInCart[0])
