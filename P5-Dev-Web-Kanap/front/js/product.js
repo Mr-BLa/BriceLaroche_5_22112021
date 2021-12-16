@@ -186,6 +186,7 @@ searchKanapProduct()
 
 
 
+
 /*
 *      "Ajout au panier"
 */
@@ -194,7 +195,7 @@ searchKanapProduct()
 // Fonction pour s'assurer que le document est correctement généré avant de récupérer les données. 
 
 const docReady = function (fn) {
-    // see if DOM is already available
+    // voir si DOM est disponible
     if (document.readyState === "complete" || document.readyState === "interactive") {
         // call on next available tick
         setTimeout(fn, 1)
@@ -204,41 +205,44 @@ const docReady = function (fn) {
 }
 
 
-//récupérer les données présentes dans le localStorage
-const getProductStorage = () => {
-    Object.keys(localStorage).forEach((key) => {
-        console.log(localStorage.getItem(key))
-    })
-}
-
-//convertir datas des produits séléctionnés en json, puis les save dans le localStorage 
+//convertir datas, sauvegarde localStorage, comparaison datas déjà dans localStorage
 const pushProductInStorage = (data) => {
     
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
-        let arrayKanap = []
+        const arrayKanap = []
         arrayKanap.push(JSON.stringify(data))
         localStorage.setItem("kanap", arrayKanap)
-        console.log(localStorage)
+
     } else { 
+        const kanapToLocalStorage = []
+
+        //on récupère les datas du local storage que l'on met dans une constante.
+        const getKanapAlreadyInLocalStorage = () => {
+            const parsedDataLocalStorage = JSON.parse(localStorage.getItem("kanap"))
+            console.log(parsedDataLocalStorage)
+            kanapToLocalStorage.push(JSON.stringify(parsedDataLocalStorage))
+            console.log(kanapToLocalStorage)
+        }
+
+        //fonction pour récup. les produits déja dans le local storage et ajout au tableau
+        getKanapAlreadyInLocalStorage()
+
+        //récupération des paramètres des nouveaux produits séléctionnés et ajout au tableau
+        kanapToLocalStorage.push(JSON.stringify(data))
+        console.log(localStorage)
         
-        let kanapInLocalStorage = []
-        kanapInLocalStorage.push(JSON.parse(localStorage.getItem("kanap")))
-        kanapInLocalStorage.push(JSON.stringify(data))
-        console.log(kanapInLocalStorage)
-        localStorage.setItem("kanap", kanapInLocalStorage)
+        //on push dans le local storage
+        localStorage.setItem("kanap", kanapToLocalStorage)
+        console.log(localStorage)
     }
 }
-
-
-
-// Vérification datas déjà sauvegardés ds local storage
 
 
 
 docReady(function() {
     const button = document.getElementById("addToCart")
     document.addEventListener('click',function(e){
-        if(e.target && e.target.id== 'addToCart') {
+        if(e.target && e.target.id == 'addToCart') {
             // Récupération paramètres du Produit à ajouter au panier
             let selectedColor = document.getElementById("colors").value
             
@@ -249,8 +253,21 @@ docReady(function() {
                 selectedQuantity,
                 selectedColor,
             }
-            pushProductInStorage(selectedParam)
+
+            // Vérification que les paramètres ont été séléctionnés
+            if (selectedParam.selectedColor === "Choix") {
+                alert("Choisissez une couleur ")
+            } else {
+                if (selectedParam.selectedQuantity < 1) {
+                    alert("Choisissez une quantitée entre 1 et 100 ")
+                } else {
+                    if (selectedParam.selectedQuantity > 100) {
+                        alert("Choisissez une quantitée entre 1 et 100 ")
+                    } else {
+                        pushProductInStorage(selectedParam)
+                    } 
+                }
+            }
         }
     })
 })
-
