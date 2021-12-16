@@ -240,7 +240,7 @@ const pushProductInStorage = (data) => {
                     //retrouver l'élément doublon dans arrayKanap et modifier sa somme
                     const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
                     console.log(elementAlreadyInArrayKanap)
-                    arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum;
+                    arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum + ""
 
                 } else {
                     arrayKanap.push(data)
