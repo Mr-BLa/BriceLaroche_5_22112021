@@ -29,7 +29,6 @@ const searchKanapProduct = async function () {
 }
 
 
-
 /*
 *       fonction pour intégrer les éléments de l'API à la page product
 */
@@ -193,7 +192,6 @@ searchKanapProduct()
 
 
 // Fonction pour s'assurer que le document est correctement généré avant de récupérer les données. 
-
 const docReady = function (fn) {
     // voir si DOM est disponible
     if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -205,35 +203,53 @@ const docReady = function (fn) {
 }
 
 
-//convertir datas, sauvegarde localStorage, comparaison datas déjà dans localStorage
+//convertir datas + sauvegarde localStorage + comparaison datas déjà dans localStorage
 const pushProductInStorage = (data) => {
-    
+    let arrayKanap = []
+
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
-        const arrayKanap = []
-        arrayKanap.push(JSON.stringify(data))
-        localStorage.setItem("kanap", arrayKanap)
+        arrayKanap.push(data)
+        localStorage.setItem("kanap", JSON.stringify(arrayKanap))
+        alert("Votre produit est ajouté au panier.")
+        console.log(arrayKanap)
+        console.log(localStorage)
 
     } else { 
-        const kanapToLocalStorage = []
+        //on récupère les datas du local storage => tableau.
+        if (localStorage.getItem("kanap")) {
+            arrayKanap = JSON.parse(localStorage.getItem("kanap"))
 
-        //on récupère les datas du local storage que l'on met dans une constante.
-        const getKanapAlreadyInLocalStorage = () => {
-            const parsedDataLocalStorage = JSON.parse(localStorage.getItem("kanap"))
-            console.log(parsedDataLocalStorage)
-            kanapToLocalStorage.push(JSON.stringify(parsedDataLocalStorage))
-            console.log(kanapToLocalStorage)
+            // array pour repérer doublon (localstorage/nouveau produit select)
+            const alreadyInCart = arrayKanap.filter((kanap) => 
+                kanap.selectedColor === data.selectedColor && 
+                kanap.productId === data.productId)
+            
+            console.log(alreadyInCart.length)
+            console.log(data.selectedColor)
+            console.log(arrayKanap)
+
+
+            //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
+                if (alreadyInCart.length) {
+                    let sum = data.selectedQuantity + alreadyInCart[0].selectedQuantity
+                    console.log(alreadyInCart[0].selectedQuantity)
+                    console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
+                    console.log(alreadyInCart[0])
+
+                    //retrouver l'élément doublon dans arrayKanap et modifier sa sommer
+                    const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
+                    console.log(elementAlreadyInArrayKanap)
+                    arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum;
+
+                } else {
+                    arrayKanap.push(data)
+                }
+
+
+            localStorage.setItem("kanap", JSON.stringify(arrayKanap))
+            console.log("produit ajouté => ", data)
+            alert("Votre produit est ajouté au panier.")
         }
-
-        //fonction pour récup. les produits déja dans le local storage et ajout au tableau
-        getKanapAlreadyInLocalStorage()
-
-        //récupération des paramètres des nouveaux produits séléctionnés et ajout au tableau
-        kanapToLocalStorage.push(JSON.stringify(data))
-        console.log(localStorage)
-        
-        //on push dans le local storage
-        localStorage.setItem("kanap", kanapToLocalStorage)
-        console.log(localStorage)
     }
 }
 
