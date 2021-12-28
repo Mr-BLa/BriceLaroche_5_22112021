@@ -2,9 +2,9 @@
 *       Récupération Id KanapProduct 
 */
 
-let urlSearchParams = (new URL(window.location.href)).searchParams;
-let productId = urlSearchParams.get('id');
-
+let urlSearchParams = (new URL(window.location.href)).searchParams
+let productId = urlSearchParams.get('id')
+let specProduct = null
 
 
 
@@ -12,9 +12,9 @@ let productId = urlSearchParams.get('id');
 *       Récupération data de l'API en fonction de l'ID des Produits
 */
 
-const searchKanapProduct = async function () {
+const searchKanapProduct = async () => {
     try {
-        let responseApi = await fetch ('http://localhost:3000/api/products/' + productId )
+        let responseApi = await fetch('http://localhost:3000/api/products/' + productId)
 
         let dataProduct = await responseApi.json()
 
@@ -33,9 +33,9 @@ const searchKanapProduct = async function () {
 *       fonction pour intégrer les éléments de l'API à la page product
 */
 
-const kanapProduct = async function(data){
-    const specProduct = data
-        
+const kanapProduct = async (data) => {
+    specProduct = data
+    console.log(specProduct)
 
     //article
     let carteProduct = document.createElement("article")
@@ -61,7 +61,7 @@ const kanapProduct = async function(data){
     carteProduct.appendChild(infos)
     infos.classList.add("item__content")
 
-    
+
 
     //Div Titre/Prix
     let price = document.createElement("div")
@@ -101,7 +101,7 @@ const kanapProduct = async function(data){
     //p description
     let descriptionProduct = document.createElement("p")
     description.appendChild(descriptionProduct)
-    descriptionProduct.id = "description" 
+    descriptionProduct.id = "description"
     descriptionProduct.textContent = specProduct.description
 
 
@@ -128,7 +128,7 @@ const kanapProduct = async function(data){
     colorProduct.appendChild(selectColors)
     selectColors.setAttribute("name", "color-select")
     selectColors.id = "colors"
-    
+
     //Options Couleurs
     let choiceColor = document.createElement("option")
     selectColors.appendChild(choiceColor)
@@ -139,8 +139,8 @@ const kanapProduct = async function(data){
     const colors = specProduct.colors
     colors.forEach(color => {
         let optionColor = document.createElement("option")
-        optionColor.value = color 
-        optionColor.textContent = color 
+        optionColor.value = color
+        optionColor.textContent = color
         selectColors.appendChild(optionColor)
     })
 
@@ -161,11 +161,10 @@ const kanapProduct = async function(data){
     quantityProduct.appendChild(selectQuantity)
     selectQuantity.setAttribute("type", "number")
     selectQuantity.setAttribute("name", "itemQuantity")
-    selectQuantity.min = 1 
-    selectQuantity.max = 100 
-    selectQuantity.value = 0 
+    selectQuantity.min = 1
+    selectQuantity.max = 100
+    selectQuantity.value = 0
     selectQuantity.id = "quantity"
-
 
 
     // Div Button 
@@ -219,19 +218,19 @@ const pushProductInStorage = (data) => {
 
             // array pour repérer doublon (localstorage/nouveau produit select)
             const alreadyInCart = arrayKanap.filter((kanap) => 
-                kanap.selectedColor === data.selectedColor && 
+                kanap.color === data.color && 
                 kanap.productId === data.productId)
 
             console.log(arrayKanap)
 
             //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
                 if (alreadyInCart.length) {
-                    let sum = parseInt(data.selectedQuantity) + parseInt(alreadyInCart[0].selectedQuantity)
+                    let sum = parseInt(data.quantity) + parseInt(alreadyInCart[0].quantity)
                     console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
 
                     //retrouver l'élément doublon dans arrayKanap et modifier sa somme
                     const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
-                    arrayKanap[elementAlreadyInArrayKanap].selectedQuantity = sum + ""
+                    arrayKanap[elementAlreadyInArrayKanap].quantity = sum + ""
                 } else {
                     arrayKanap.push(data)
                 }
@@ -247,35 +246,30 @@ const pushProductInStorage = (data) => {
 
 
 
-docReady(function() {
-    const button = document.getElementById("addToCart")
-    document.addEventListener('click',function(e){
-        if(e.target && e.target.id == 'addToCart') {
-            // Récupération paramètres du Produit à ajouter au panier
-            let selectedColor = document.getElementById("colors").value
-            
-            let selectedQuantity = document.getElementById("quantity").value
-        
-            let selectedParam = {
-                productId,
-                selectedQuantity,
-                selectedColor,
-            }
+docReady(() => {
+        const button = document.getElementById("addToCart")
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.id == 'addToCart') {
+                // Récupération paramètres du Produit à ajouter au panier
 
-            // Vérification que les paramètres ont été séléctionnés
-            if (selectedParam.selectedColor === "Choix") {
-                alert("Choisissez une couleur ")
-            } else {
-                if (selectedParam.selectedQuantity < 1) {
-                    alert("Choisissez une quantitée entre 1 et 100 ")
+                specProduct.color = document.getElementById("colors").value
+                specProduct.quantity = document.getElementById("quantity").value
+                console.log(specProduct)
+
+                // Vérification que les paramètres ont été séléctionnés
+                if (specProduct.color === "Choix") {
+                    alert("Choisissez une couleur ")
                 } else {
-                    if (selectedParam.selectedQuantity > 100) {
+                    if (specProduct.quantity < 1) {
                         alert("Choisissez une quantitée entre 1 et 100 ")
                     } else {
-                        pushProductInStorage(selectedParam)
-                    } 
+                        if (specProduct.quantity > 100) {
+                            alert("Choisissez une quantitée entre 1 et 100 ")
+                        } else {
+                            pushProductInStorage(specProduct)
+                        }
+                    }
                 }
             }
-        }
+        })
     })
-})
