@@ -2,9 +2,9 @@
 *       Récupération du panier/array via Local Storage 
 */
 let specProduct = null
+let arrayCart = []
 
 let getDataFromLocalStorage = () => {
-    let arrayCart = []
 
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
         alert("Votre panier est vide")
@@ -31,7 +31,7 @@ let elementDuPanier = (data) => {
     specProduct = data
     console.log(specProduct)
 
-    //article
+    // Article
     let carteProduct = document.createElement("article")
     document.querySelector("#cart__items").appendChild(carteProduct)
     carteProduct.setAttribute("data-id", specProduct._id)
@@ -40,12 +40,12 @@ let elementDuPanier = (data) => {
 
 
 
-    //Div img 
+    // Div img 
     let divImg = document.createElement("div")
     carteProduct.appendChild(divImg)
     divImg.classList.add("cart__item__img")
 
-    //img
+    // Img
     let imgProduct = document.createElement("img")
     divImg.appendChild(imgProduct)
     imgProduct.setAttribute("src", specProduct.imageUrl)
@@ -53,50 +53,50 @@ let elementDuPanier = (data) => {
 
 
 
-    //Div Content
+    // Div Content
     let content = document.createElement("div")
     carteProduct.appendChild(content)
     content.classList.add("cart__item__content")
 
 
-    //Div Description Content
+    // Div Description Content
     let description = document.createElement("div")
     content.appendChild(description)
     description.classList.add("cart__item__content__description")
     
 
-    //Titre
+    // Titre
     let nameProduct = document.createElement("h2")
     description.appendChild(nameProduct)
     nameProduct.textContent = specProduct.name
 
-    //p couleur
+    // P couleur
     let colorTxt = document.createElement("p")
     content.appendChild(colorTxt)
     colorTxt.textContent = specProduct.color
 
-    //p prix
+    // P prix
     let priceTxt = document.createElement("p")
     content.appendChild(priceTxt)
     priceTxt.textContent = specProduct.price + " €"
 
-    //Div Paramètres Content
+    // Div Paramètres Content
     let settings = document.createElement("div")
     content.appendChild(settings)
     settings.classList.add("cart__item__content__settings")
 
 
-    //Div Quantité
+    // Div Quantité
     let quantity = document.createElement("div")
     settings.appendChild(quantity)
     quantity.classList.add("cart__item__content__settings__quantity")
 
-    //p quantité
+    // P quantité
     let qtityTxt = document.createElement("p")
     quantity.appendChild(qtityTxt)
     qtityTxt.textContent = "Qté : "
 
-    //Input Quantité
+    // Input Quantité
     let selectQuantity = document.createElement("input")
     quantity.appendChild(selectQuantity)
     selectQuantity.setAttribute("type", "number")
@@ -113,14 +113,29 @@ let elementDuPanier = (data) => {
     suppr.classList.add("cart__item__content__settings__delete")
     
 
-    //p supprimer
+    // P supprimer
     let supprTxt = document.createElement("p")
     suppr.appendChild(supprTxt)
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
+    console.log(arrayCart)
+    console.log(localStorage)
     supprTxt.addEventListener("click", ()=>{
-        supprTxt.closest("article").remove()
-        
+        if (confirm("Retirer le Produit du panier?")) {
+            //Au clic, retrouver l'index du produit dans l'array Panier. 
+            let indexOfProd = arrayCart.indexOf(specProduct)
+
+            //Supprimer le produit de l'array Panier
+            if (indexOfProd > -1) {
+                arrayCart.splice(indexOfProd, 1)
+            }
+
+            //MàJ du localStorage pour y supprimer le produit
+            localStorage.setItem("kanap", JSON.stringify(arrayCart))
+
+            //Supprimer l'article correspondant
+            supprTxt.closest("article").remove()
+        }    
     })
 }
 
@@ -128,4 +143,5 @@ getDataFromLocalStorage()
 
 
 /*
+
 */ 
