@@ -35,7 +35,6 @@ const searchKanapProduct = async () => {
 
 const kanapProduct = async (data) => {
     specProduct = data
-    console.log(specProduct)
 
     //article
     let carteProduct = document.createElement("article")
@@ -221,12 +220,10 @@ const pushProductInStorage = (data) => {
                 kanap.color === data.color && 
                 kanap.productId === data.productId)
 
-            console.log(arrayKanap)
 
             //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
                 if (alreadyInCart.length) {
                     let sum = parseInt(data.quantity) + parseInt(alreadyInCart[0].quantity)
-                    console.log("Produit(s) déjà présent(s) dans le panier. Quantité actualisée: ", sum)
 
                     //retrouver l'élément doublon dans arrayKanap et modifier sa somme
                     const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
@@ -237,9 +234,6 @@ const pushProductInStorage = (data) => {
 
 
             localStorage.setItem("kanap", JSON.stringify(arrayKanap))
-            console.log("produit ajouté: ", data)
-            console.log(localStorage)
-            alert("Votre produit est ajouté au panier.")
         }
     }
 }
@@ -254,7 +248,6 @@ docReady(() => {
 
                 specProduct.color = document.getElementById("colors").value
                 specProduct.quantity = document.getElementById("quantity").value
-                console.log(specProduct)
 
                 // Vérification que les paramètres ont été séléctionnés
                 if (specProduct.color === "Choix") {
