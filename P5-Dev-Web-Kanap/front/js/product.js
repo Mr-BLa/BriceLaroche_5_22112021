@@ -207,8 +207,6 @@ const pushProductInStorage = (data) => {
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
         arrayKanap.push(data)
         localStorage.setItem("kanap", JSON.stringify(arrayKanap))
-        alert("Votre produit est ajouté au panier.")
-
 
     } else { 
         //on récupère les datas du local storage => tableau.
