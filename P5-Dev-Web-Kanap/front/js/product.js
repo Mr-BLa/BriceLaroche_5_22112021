@@ -238,28 +238,24 @@ const pushProductInStorage = (data) => {
 
 
 docReady(() => {
-        const button = document.getElementById("addToCart")
-        document.addEventListener('click', function (e) {
-            if (e.target && e.target.id == 'addToCart') {
-                // Récupération paramètres du Produit à ajouter au panier
+    const button = document.getElementById("addToCart")
+    document.addEventListener('click', function (e) {
+        if (e.target && e.target.id == 'addToCart') {
+            // Récupération paramètres du Produit à ajouter au panier
 
-                specProduct.color = document.getElementById("colors").value
-                specProduct.quantity = document.getElementById("quantity").value
+            specProduct.color = document.getElementById("colors").value
+            specProduct.quantity = document.getElementById("quantity").value
 
-                // Vérification que les paramètres ont été séléctionnés
-                if (specProduct.color === "Choix") {
-                    alert("Choisissez une couleur ")
-                } else {
-                    if (specProduct.quantity < 1) {
+            // Vérification que les paramètres ont été séléctionnés
+            if (specProduct.color === "Choix") {
+                alert("Choisissez une couleur ")
+            } else {
+                if (1 > specProduct.quantity > 100) {
                         alert("Choisissez une quantitée entre 1 et 100 ")
-                    } else {
-                        if (specProduct.quantity > 100) {
-                            alert("Choisissez une quantitée entre 1 et 100 ")
-                        } else {
-                            pushProductInStorage(specProduct)
-                        }
-                    }
+                } else {
+                    pushProductInStorage(specProduct)
                 }
             }
-        })
+        }
     })
+})
