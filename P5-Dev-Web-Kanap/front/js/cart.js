@@ -108,12 +108,17 @@ let elementDuPanier = (data) => {
 
     //Si changement de quantité de produits, sur la page panier
     selectQuantity.addEventListener('change', ()=>{
+        //Au chgt, retrouver l'index du produit dans l'array Panier.
         let indexOfProd = arrayCart.indexOf(specProduct)
 
         //Si nouvelle valeur différente, modification dans l'array Panier et dans local Storage
         if (selectQuantity.value !== arrayCart[indexOfProd].quantity && 1 < selectQuantity.value < 100){
             let newQuantity = parseInt(selectQuantity.value)
+
+            //Màj qtité dans l' Array Panier
             arrayCart[indexOfProd].quantity = newQuantity
+            
+            //MàJ du localStorage
             localStorage.setItem("kanap", JSON.stringify(arrayCart))
         }
     })
