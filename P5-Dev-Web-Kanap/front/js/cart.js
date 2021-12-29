@@ -111,12 +111,16 @@ let elementDuPanier = (data) => {
     let suppr = document.createElement("div")
     settings.appendChild(suppr)
     suppr.classList.add("cart__item__content__settings__delete")
+    
 
     //p supprimer
     let supprTxt = document.createElement("p")
     suppr.appendChild(supprTxt)
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
+    supprTxt.addEventListener("click", ()=>{
+        supprTxt.closest("article").remove()
+    })
 }
 
 getDataFromLocalStorage()
