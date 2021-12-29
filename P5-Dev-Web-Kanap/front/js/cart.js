@@ -120,6 +120,7 @@ let elementDuPanier = (data) => {
     supprTxt.textContent = "Supprimer"
     supprTxt.addEventListener("click", ()=>{
         supprTxt.closest("article").remove()
+        
     })
 }
 
@@ -127,5 +128,4 @@ getDataFromLocalStorage()
 
 
 /*
-
 */ 
