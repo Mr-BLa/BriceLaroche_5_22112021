@@ -106,6 +106,21 @@ let elementDuPanier = (data) => {
     selectQuantity.max = 100
     selectQuantity.value = specProduct.quantity
 
+    //Si changement de quantité de produits, sur la page panier
+    selectQuantity.addEventListener('change', ()=>{
+        let indexOfProd = arrayCart.indexOf(specProduct)
+
+        //Si nouvelle valeur différente, modification dans l'array Panier et dans local Storage
+        if (selectQuantity.value !== arrayCart[indexOfProd].quantity && 1 < selectQuantity.value < 100){
+            let newQuantity = parseInt(selectQuantity.value)
+            arrayCart[indexOfProd].quantity = newQuantity
+            localStorage.setItem("kanap", JSON.stringify(arrayCart))
+        }
+    })
+
+/*
+
+*/
 
     // Div Suppr
     let suppr = document.createElement("div")
@@ -118,10 +133,9 @@ let elementDuPanier = (data) => {
     suppr.appendChild(supprTxt)
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
-    console.log(arrayCart)
-    console.log(localStorage)
+
     supprTxt.addEventListener("click", ()=>{
-        if (confirm("Retirer le Produit du panier?")) {
+        if (confirm("Retirer le Produit du Panier?")) {
             //Au clic, retrouver l'index du produit dans l'array Panier. 
             let indexOfProd = arrayCart.indexOf(specProduct)
 

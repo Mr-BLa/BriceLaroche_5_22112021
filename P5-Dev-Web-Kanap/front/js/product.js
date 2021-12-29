@@ -176,7 +176,6 @@ const kanapProduct = async (data) => {
     addCart.appendChild(buttonAdd)
     buttonAdd.id = "addToCart"
     buttonAdd.textContent = "Ajouter au panier"
-
 }
 
 searchKanapProduct()
