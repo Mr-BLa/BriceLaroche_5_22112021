@@ -112,7 +112,7 @@ let elementDuPanier = (data) => {
         let indexOfProd = arrayCart.indexOf(specProduct)
 
         //Si nouvelle valeur différente, modification dans l'array Panier et dans local Storage
-        if (selectQuantity.value !== arrayCart[indexOfProd].quantity && 1 < selectQuantity.value < 100){
+        if (selectQuantity.value !== arrayCart[indexOfProd].quantity && 1 <= selectQuantity.value <= 100){
             let newQuantity = parseInt(selectQuantity.value)
 
             //Màj qtité dans l' Array Panier
@@ -120,6 +120,9 @@ let elementDuPanier = (data) => {
 
             //MàJ du localStorage
             localStorage.setItem("kanap", JSON.stringify(arrayCart))
+
+            //Modification de l'affichage du total, si modification de l'input quantité sur la page panier
+            showTotal()
         }
     })
 
@@ -166,22 +169,24 @@ let elementDuPanier = (data) => {
     */      
 
     //Dans arrayCart, on récupère et multiplie pour chaque élément du panier: le prix du produit et la quantité choisie. On réalise ensuite la somme des résultats obtenus
-    let resultSum = null
-    let quantityOfProductInCart = null 
-    console.log(arrayCart)
-    for (let i = 0; i < arrayCart.length; i++) {
-        resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
-        console.log(resultSum)
+    let showTotal = () => {
+        let resultSum = null
+        let quantityOfProductInCart = null
+        for (let i = 0; i < arrayCart.length; i++) {
+            console.log(arrayCart)
+            resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
+            console.log(resultSum)
 
-        //On récupère la somme des produits présents dans le panier
-        quantityOfProductInCart += parseInt(arrayCart[i].quantity)
-        console.log(quantityOfProductInCart)
+            //On récupère la somme des produits présents dans le panier
+            quantityOfProductInCart += parseInt(arrayCart[i].quantity)
+            console.log(quantityOfProductInCart)
 
-        // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
-        document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
-        document.querySelector("#totalPrice").textContent = resultSum
+            // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
+            document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
+            document.querySelector("#totalPrice").textContent = resultSum
+        }
     }
-
+    showTotal()
 }
 
 
