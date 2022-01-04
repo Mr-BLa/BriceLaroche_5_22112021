@@ -4,6 +4,7 @@
 let specProduct = null
 let arrayCart = []
 
+
 let getDataFromLocalStorage = () => {
 
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
@@ -29,7 +30,6 @@ let getDataFromLocalStorage = () => {
 
 let elementDuPanier = (data) => {
     specProduct = data
-    console.log(specProduct)
 
     // Article
     let carteProduct = document.createElement("article")
@@ -117,15 +117,13 @@ let elementDuPanier = (data) => {
 
             //Màj qtité dans l' Array Panier
             arrayCart[indexOfProd].quantity = newQuantity
-            
+
             //MàJ du localStorage
             localStorage.setItem("kanap", JSON.stringify(arrayCart))
         }
     })
 
-/*
 
-*/
 
     // Div Suppr
     let suppr = document.createElement("div")
@@ -156,11 +154,29 @@ let elementDuPanier = (data) => {
             supprTxt.closest("article").remove()
         }    
     })
+
+
+
+    /*                  GESTION
+    *                SOMME & TOTAL
+    */      
+        //dans arrayCart, on veut récupérer pour chaque objet du tableau, le prix du produit. On multiplie les quantités de produits par les prix, puis on aditionne les résultats
+    
+    let arraySum = null
+    console.log(arrayCart)
+    for (let i = 0; i < arrayCart.length; i++) {
+        arraySum += parseInt(arrayCart[i].price)
+        console.log(arraySum)
+    }
 }
 
-getDataFromLocalStorage()
 
 
 /*
+* <div class="cart__price">
+            <p>Total (<span id="totalQuantity"> 2 </span> articles) : <span id="totalPrice"> 84,00 </span> €</p>
+            </div>
+*/
 
-*/ 
+getDataFromLocalStorage()
+
