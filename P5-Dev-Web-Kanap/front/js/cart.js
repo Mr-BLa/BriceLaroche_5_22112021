@@ -152,6 +152,10 @@ let elementDuPanier = (data) => {
 
             //Supprimer l'article correspondant
             supprTxt.closest("article").remove()
+
+            /*
+            **          ATTENTION BUG A CORRIGER: SI ON ENLEVE LE 1ER ARTICLE DU PANIER, SUPPR LE DERNIER DANS LOCALSTORAGE
+            */
         }    
     })
 
@@ -160,23 +164,26 @@ let elementDuPanier = (data) => {
     /*                  GESTION
     *                SOMME & TOTAL
     */      
-        //dans arrayCart, on veut récupérer pour chaque objet du tableau, le prix du produit. On multiplie les quantités de produits par les prix, puis on aditionne les résultats
-    
-    let arraySum = null
+
+    //Dans arrayCart, on récupère et multiplie pour chaque élément du panier: le prix du produit et la quantité choisie. On réalise ensuite la somme des résultats obtenus
+    let resultSum = null
+    let quantityOfProductInCart = null 
     console.log(arrayCart)
     for (let i = 0; i < arrayCart.length; i++) {
-        arraySum += parseInt(arrayCart[i].price)
-        console.log(arraySum)
+        resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
+        console.log(resultSum)
+
+        //On récupère la somme des produits présents dans le panier
+        quantityOfProductInCart += parseInt(arrayCart[i].quantity)
+        console.log(quantityOfProductInCart)
+
+        // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
+        document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
+        document.querySelector("#totalPrice").textContent = resultSum
     }
+
 }
 
-
-
-/*
-* <div class="cart__price">
-            <p>Total (<span id="totalQuantity"> 2 </span> articles) : <span id="totalPrice"> 84,00 </span> €</p>
-            </div>
-*/
 
 getDataFromLocalStorage()
 
