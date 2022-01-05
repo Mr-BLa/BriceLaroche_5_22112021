@@ -198,13 +198,19 @@ getDataFromLocalStorage()
 */
 
 
-//Input Prénom:
+//filterRegex1: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
+let filterRegex1 = /[^\p{L}\s-]/giu
+
+//filterRegex2: Même que filterRegex1 + chiffre et ,
+let filterRegex2 = /[^0-9\p{L},\s-]/giu
+
+
+
+// Input Prénom:
 let inputFirstName = document.querySelector('input[name="firstName"]')
-//filterRegex: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, les espaces et les "-"
-let filterRegex = /[^\p{L}\s-]/giu
 
 inputFirstName.addEventListener("input", (e) =>{
-    if (filterRegex.test(e.target.value)) {
+    if (filterRegex1.test(e.target.value)) {
         document.querySelector("#firstNameErrorMsg").textContent = "Le prénom doit uniquement contenir des lettres"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
@@ -212,34 +218,22 @@ inputFirstName.addEventListener("input", (e) =>{
         document.querySelector("#firstNameErrorMsg").textContent = null
         document.querySelector("#order").removeAttribute("disabled")
     }
-
 })
-// /[&"~#{([|@)\\\]+=}$£*%!§:/;.,?<>µ«»\d]/gi
-/*function getCodeValidation() {
-  return document.getElementById("code-validation");
-}
 
-function disableSubmit(disabled) {
-  if (disabled) {
-    document
-      .getElementById("submit-btn")
-      .setAttribute("disabled", true);
-  } else {
-    document
-      .getElementById("submit-btn")
-      .removeAttribute("disabled");
-  }
-}
 
-document
-  .getElementById("code")
-  .addEventListener("input", function(e) {
-  if (/^CODE-/.test(e.target.value)) {
-    getCodeValidation().innerText = "Code valide";
-    disableSubmit(false);
-  } else {
-    getCodeValidation().innerText = "Code invalide";
-    disableSubmit(true);
-  }
-});
-*/
+// Input Nom: 
+let inputLastName = document.querySelector('input[name="lastName"]')
+
+inputLastName.addEventListener("input", (e) =>{
+    if (filterRegex1.test(e.target.value)) {
+        document.querySelector("#lastNameErrorMsg").textContent = "Le nom doit uniquement contenir des lettres"
+        //désactiver le bouton 
+        document.querySelector("#order").setAttribute("disabled", true)
+    }else{
+        document.querySelector("#lastNameErrorMsg").textContent = null
+        document.querySelector("#order").removeAttribute("disabled")
+    }
+})
+
+
+// Input Adresse 
