@@ -201,7 +201,7 @@ getDataFromLocalStorage()
 //filterRegex1: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
 let filterRegex1 = /[^\p{L}\s-]/giu
 
-//filterRegex2: Même que filterRegex1 avec en plus: chiffres et ","
+//filterRegex2: filterRegex1 avec en plus: chiffres et ","
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 
@@ -246,6 +246,21 @@ inputAddress.addEventListener("input", (e) =>{
         document.querySelector("#order").setAttribute("disabled", true)
     }else{
         document.querySelector("#addressErrorMsg").textContent = null
+        document.querySelector("#order").removeAttribute("disabled")
+    }
+})
+
+
+// Input Ville 
+let inputCity = document.querySelector('input[name="city"]')
+
+inputCity.addEventListener("input", (e) =>{
+    if (filterRegex1.test(e.target.value)) {
+        document.querySelector("#cityErrorMsg").textContent = "Le nom de la Ville doit uniquement contenir des lettres"
+        //désactiver le bouton 
+        document.querySelector("#order").setAttribute("disabled", true)
+    }else{
+        document.querySelector("#cityErrorMsg").textContent = null
         document.querySelector("#order").removeAttribute("disabled")
     }
 })
