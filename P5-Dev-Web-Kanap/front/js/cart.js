@@ -1,5 +1,5 @@
 /*
-*       Récupération du panier/array via Local Storage 
+*          RECUPERATION DU PANIER/ARRAY VIA LOCAL STORAGE
 */
 let specProduct = null
 let arrayCart = []
@@ -25,7 +25,7 @@ let getDataFromLocalStorage = () => {
 
 
 /*
- *          Génération <Article>
+ *          GENERATION <ARTICLE>
  */
 
 let elementDuPanier = (data) => {
@@ -163,23 +163,19 @@ let elementDuPanier = (data) => {
     })
 
 
-
-    /*                  GESTION
-    *                SOMME & TOTAL
-    */      
+/*                  
+*           GESTION SOMME & TOTAL
+*/      
 
     //Dans arrayCart, on récupère et multiplie pour chaque élément du panier: le prix du produit et la quantité choisie. On réalise ensuite la somme des résultats obtenus
     let showTotal = () => {
         let resultSum = null
         let quantityOfProductInCart = null
         for (let i = 0; i < arrayCart.length; i++) {
-            console.log(arrayCart)
             resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
-            console.log(resultSum)
 
             //On récupère la somme des produits présents dans le panier
             quantityOfProductInCart += parseInt(arrayCart[i].quantity)
-            console.log(quantityOfProductInCart)
 
             // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
             document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
@@ -192,3 +188,58 @@ let elementDuPanier = (data) => {
 
 getDataFromLocalStorage()
 
+
+
+
+
+
+/*
+*          SAISIE ET GESTION DES COORDONNéES
+*/
+
+
+//Input Prénom:
+let inputFirstName = document.querySelector('input[name="firstName"]')
+//filterRegex: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, les espaces et les "-"
+let filterRegex = /[^\p{L}\s-]/giu
+
+inputFirstName.addEventListener("input", (e) =>{
+    if (filterRegex.test(e.target.value)) {
+        document.querySelector("#firstNameErrorMsg").textContent = "Le prénom doit uniquement contenir des lettres"
+        //désactiver le bouton 
+        document.querySelector("#order").setAttribute("disabled", true)
+    }else{
+        document.querySelector("#firstNameErrorMsg").textContent = null
+        document.querySelector("#order").removeAttribute("disabled")
+    }
+
+})
+// /[&"~#{([|@)\\\]+=}$£*%!§:/;.,?<>µ«»\d]/gi
+/*function getCodeValidation() {
+  return document.getElementById("code-validation");
+}
+
+function disableSubmit(disabled) {
+  if (disabled) {
+    document
+      .getElementById("submit-btn")
+      .setAttribute("disabled", true);
+  } else {
+    document
+      .getElementById("submit-btn")
+      .removeAttribute("disabled");
+  }
+}
+
+document
+  .getElementById("code")
+  .addEventListener("input", function(e) {
+  if (/^CODE-/.test(e.target.value)) {
+    getCodeValidation().innerText = "Code valide";
+    disableSubmit(false);
+  } else {
+    getCodeValidation().innerText = "Code invalide";
+    disableSubmit(true);
+  }
+});
+*/
