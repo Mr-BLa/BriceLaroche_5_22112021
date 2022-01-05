@@ -201,7 +201,7 @@ getDataFromLocalStorage()
 //filterRegex1: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
 let filterRegex1 = /[^\p{L}\s-]/giu
 
-//filterRegex2: Même que filterRegex1 + chiffre et ,
+//filterRegex2: Même que filterRegex1 avec en plus: chiffres et ","
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 
@@ -237,3 +237,15 @@ inputLastName.addEventListener("input", (e) =>{
 
 
 // Input Adresse 
+let inputAddress = document.querySelector('input[name="address"]')
+
+inputAddress.addEventListener("input", (e) =>{
+    if (filterRegex2.test(e.target.value)) {
+        document.querySelector("#addressErrorMsg").textContent = "Adresse invalide"
+        //désactiver le bouton 
+        document.querySelector("#order").setAttribute("disabled", true)
+    }else{
+        document.querySelector("#addressErrorMsg").textContent = null
+        document.querySelector("#order").removeAttribute("disabled")
+    }
+})
