@@ -157,6 +157,7 @@ let elementDuPanier = (data) => {
 
             /*
             **          ATTENTION BUG A CORRIGER: SI ON ENLEVE LE 1ER ARTICLE DU PANIER, SUPPR LE DERNIER DANS LOCALSTORAGE
+            **          MEME PROBLEME LORSQU'ON CHANGE LA QUANTITE DU 1er PRODUIT, CEST LA QTITE DU DERNIER QUI CHANGE (mais pas pour le prix)
             */
         }    
     })
@@ -272,7 +273,7 @@ inputCity.addEventListener("input", (e) =>{
 
 // Input Mail 
                     /*
-                    *      !!! VERIFIER LA METHODE AVEC REGEX OU PLUTOT AVEC HTML MAIL !!!
+                    *      !!! VERIFIER LA METHODE AVEC REGEX OU PLUTOT AVEC HTML MAIL !!! 
                     */
 let inputMail = document.querySelector('input[name="email"]')
 
@@ -289,10 +290,9 @@ inputMail.addEventListener("input", (e) =>{
 
 
 
-//Bouton Commander 
 
-//Constitution d'un objet contact (à partir des données du formulaire) et d'un tableau de produits.
-class infosContact {
+//Constitution d'un objet contact (à partir des données du formulaire).
+class contact {
     constructor (prenom, nom, adresse, ville, email){
         this.prenom = prenom
         this.nom = nom 
@@ -302,10 +302,17 @@ class infosContact {
     }
 }
 
+//Création d'un tableau de produits
+let orderArray = []
 
-
+//Bouton Commander 
 let btnCommander = document.querySelector("#order")
 btnCommander.addEventListener("mouseover", (e) =>{
-    let contactClient = new infosContact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
-    console.log(contactClient)
+    let contactClient = new contact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
+    let totalPriceOrder = document.querySelector("#totalPrice").textContent + "€"
+    orderArray.push(contactClient, arrayCart, totalPriceOrder)
+    console.log(orderArray)
+
+    localStorage.setItem("total", JSON.stringify(orderArray))
+    console.log(localStorage)
 })
