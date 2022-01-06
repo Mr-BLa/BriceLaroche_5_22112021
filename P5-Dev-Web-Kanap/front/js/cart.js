@@ -302,17 +302,30 @@ class contact {
     }
 }
 
-//Création d'un tableau de produits
-let orderArray = []
-
+/*
+** !! attention, le addeventlistener est en mouseover, pour les test, le remettre en "click" par la suite !!
+*/
 //Bouton Commander 
 let btnCommander = document.querySelector("#order")
 btnCommander.addEventListener("mouseover", (e) =>{
     let contactClient = new contact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
-    let totalPriceOrder = document.querySelector("#totalPrice").textContent + "€"
-    orderArray.push(contactClient, arrayCart, totalPriceOrder)
-    console.log(orderArray)
-
-    localStorage.setItem("total", JSON.stringify(orderArray))
+    console.log(arrayCart)
+    console.log(contactClient)
     console.log(localStorage)
+
+    // faire requete post api ici.
+    /*
+    *   Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName,
+    *   lastName, address, city et email. Le tableau des produits envoyé au back-end doit être un
+    *   array de strings product-ID. Les types de ces champs et leur présence doivent être validés
+    *   avant l’envoi des données au serveur.
+    * 
+    * 
+    *   contact {prenom: 'Jean-Hectôr', nom: 'Öbervillier', adresse: '10, Rue des Vacances', ville: 'Metaverse', email: 'sdffg@hotmail.com'}
+    *   {kanap: '[{"colors":["Blue","White","Black"],"_id":"107fb5b… gris, deux places","color":"Grey","quantity":1}]', length: 1}
+    */
+
+
+    //localStorage.setItem("total", JSON.stringify(orderArray))
+    //console.log(localStorage)
 })
