@@ -20,7 +20,6 @@ let getDataFromLocalStorage = () => {
         const kanapInCart = arrayCart[i]
         elementDuPanier(kanapInCart)
     }
-
 }
 
 
@@ -204,6 +203,10 @@ let filterRegex1 = /[^\p{L}\s-]/giu
 //filterRegex2: filterRegex1 avec en plus: chiffres et ","
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
+//Regex mail 
+/*let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gi
+*/
+let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
 
 
 // Input Prénom:
@@ -263,4 +266,28 @@ inputCity.addEventListener("input", (e) =>{
         document.querySelector("#cityErrorMsg").textContent = null
         document.querySelector("#order").removeAttribute("disabled")
     }
+})
+
+
+// Input Mail 
+let inputMail = document.querySelector('input[name="email"]')
+
+inputMail.addEventListener("input", (e) =>{
+    if (filterRegex1.test(e.target.value)) {
+        document.querySelector("#emailErrorMsg").textContent = "Adresse mail invalide"
+        //désactiver le bouton 
+        document.querySelector("#order").setAttribute("disabled", true)
+    }else{
+        document.querySelector("#emailErrorMsg").textContent = null
+        document.querySelector("#order").removeAttribute("disabled")
+    }
+})
+
+
+
+//Bouton Commander 
+//création array
+let btnCommander = document.querySelector("#order")
+btnCommander.addEventListener("click", (e) =>{
+
 })
