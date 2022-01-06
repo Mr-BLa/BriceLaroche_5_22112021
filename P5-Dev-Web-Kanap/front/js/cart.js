@@ -204,9 +204,10 @@ let filterRegex1 = /[^\p{L}\s-]/giu
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 //Regex mail 
-/*let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gi
-*/
-let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+//let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+
 
 
 // Input Prénom:
@@ -270,6 +271,9 @@ inputCity.addEventListener("input", (e) =>{
 
 
 // Input Mail 
+                    /*
+                    *      !!! VERIFIER LA METHODE AVEC REGEX OU PLUTOT AVEC HTML MAIL !!!
+                    */
 let inputMail = document.querySelector('input[name="email"]')
 
 inputMail.addEventListener("input", (e) =>{
@@ -286,8 +290,22 @@ inputMail.addEventListener("input", (e) =>{
 
 
 //Bouton Commander 
-//création array
-let btnCommander = document.querySelector("#order")
-btnCommander.addEventListener("click", (e) =>{
 
+//Constitution d'un objet contact (à partir des données du formulaire) et d'un tableau de produits.
+class infosContact {
+    constructor (prenom, nom, adresse, ville, email){
+        this.prenom = prenom
+        this.nom = nom 
+        this.adresse = adresse
+        this.ville = ville 
+        this.email = email
+    }
+}
+
+
+
+let btnCommander = document.querySelector("#order")
+btnCommander.addEventListener("mouseover", (e) =>{
+    let contactClient = new infosContact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
+    console.log(contactClient)
 })
