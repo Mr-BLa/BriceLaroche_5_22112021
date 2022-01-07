@@ -292,11 +292,11 @@ inputMail.addEventListener("input", (e) =>{
 
 //Constitution d'un objet contact (à partir des données du formulaire).
 class contact {
-    constructor (prenom, nom, adresse, ville, email){
-        this.prenom = prenom
-        this.nom = nom 
-        this.adresse = adresse
-        this.ville = ville 
+    constructor (firstName, lastName, address, city, email){
+        this.firstName = firstName
+        this.lastName = lastName 
+        this.address = address
+        this.city = city 
         this.email = email
     }
 }
@@ -308,10 +308,19 @@ class contact {
 let btnCommander = document.querySelector("#order")
 btnCommander.addEventListener("mouseover", (e) =>{
     let contactClient = new contact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
+    let stringifyContact = JSON.stringify(contactClient)
+    let stringifyArray = JSON.stringify(arrayCart)
+    /*let requestApi = fetch ('http://localhost:3000/api/products/' + "order", {
+        method: "POST", 
+        body: JSON.stringify(arrayKanap) + JSON.stringify(contactClient)
+    })*/
+    console.log(stringifyContact)
+    console.log(stringifyArray)
     console.log(arrayCart)
     console.log(contactClient)
     console.log(localStorage)
-
+    //console.log(requestApi)
+    //localStorage.setItem("contact", JSON.stringify(contactClient))
     // faire requete post api ici.
     /*
     *   Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName,
@@ -320,7 +329,7 @@ btnCommander.addEventListener("mouseover", (e) =>{
     *   avant l’envoi des données au serveur.
     * 
     * 
-    *   contact {prenom: 'Jean-Hectôr', nom: 'Öbervillier', adresse: '10, Rue des Vacances', ville: 'Metaverse', email: 'sdffg@hotmail.com'}
+    *   contact {firstName: 'Jean-Hectôr', lastName: 'Öbervillier', address: '10, Rue des Vacances', city: 'Metaverse', email: 'sdffg@hotmail.com'}
     *   {kanap: '[{"colors":["Blue","White","Black"],"_id":"107fb5b… gris, deux places","color":"Grey","quantity":1}]', length: 1}
     */
 
