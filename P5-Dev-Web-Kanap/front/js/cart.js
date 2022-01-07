@@ -204,7 +204,7 @@ let filterRegex1 = /[^\p{L}\s-]/giu
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 //Regex mail 
-//let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+//let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g
 let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 
@@ -277,7 +277,7 @@ inputCity.addEventListener("input", (e) =>{
 let inputMail = document.querySelector('input[name="email"]')
 
 inputMail.addEventListener("input", (e) =>{
-    if (filterRegex1.test(e.target.value)) {
+    if (!regexMail.test(e.target.value)) {
         document.querySelector("#emailErrorMsg").textContent = "Adresse mail invalide"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
