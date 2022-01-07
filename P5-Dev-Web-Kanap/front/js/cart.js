@@ -106,9 +106,9 @@ let elementDuPanier = (data) => {
     selectQuantity.value = specProduct.quantity
 
     //Si changement de quantité de produits, sur la page panier
-    selectQuantity.addEventListener('change', ()=>{
+    selectQuantity.addEventListener('change', (e)=>{
         //Au chgt, retrouver l'index du produit dans l'array Panier.
-        let indexOfProd = arrayCart.indexOf(specProduct)
+        let indexOfProd = Array.prototype.indexOf.call(document.querySelectorAll(".cart__item"), e.target.closest(".cart__item"))
 
         //Si nouvelle valeur différente, modification dans l'array Panier et dans local Storage
         if (selectQuantity.value !== arrayCart[indexOfProd].quantity && 1 <= selectQuantity.value <= 100){
@@ -139,10 +139,10 @@ let elementDuPanier = (data) => {
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
 
-    supprTxt.addEventListener("click", ()=>{
+    supprTxt.addEventListener("click", (e)=>{
         if (confirm("Retirer le Produit du Panier?")) {
             //Au clic, retrouver l'index du produit dans l'array Panier. 
-            let indexOfProd = arrayCart.indexOf(specProduct)
+            let indexOfProd = Array.prototype.indexOf.call(document.querySelectorAll(".cart__item"), e.target.closest(".cart__item"))
 
             //Supprimer le produit de l'array Panier
             if (indexOfProd > -1) {
@@ -155,10 +155,9 @@ let elementDuPanier = (data) => {
             //Supprimer l'article correspondant
             supprTxt.closest("article").remove()
 
-            /*
-            **          ATTENTION BUG A CORRIGER: SI ON ENLEVE LE 1ER ARTICLE DU PANIER, SUPPR LE DERNIER DANS LOCALSTORAGE
-            **          MEME PROBLEME LORSQU'ON CHANGE LA QUANTITE DU 1er PRODUIT, CEST LA QTITE DU DERNIER QUI CHANGE (mais pas pour le prix)
-            */
+            //Modification de l'affichage du total, si suppression produit sur la page panier
+            showTotal()
+            
         }    
     })
 
