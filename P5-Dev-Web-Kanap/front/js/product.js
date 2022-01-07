@@ -254,6 +254,7 @@ docReady(() => {
                         alert("Choisissez une quantitée entre 1 et 100 ")
                 } else {
                     pushProductInStorage(specProduct)
+                    confirm("Votre article a bien été ajouté au panier")
                 }
             }
         }
