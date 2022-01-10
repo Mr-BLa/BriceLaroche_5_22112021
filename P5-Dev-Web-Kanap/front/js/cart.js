@@ -7,7 +7,7 @@ let arrayCart = []
 
 let getDataFromLocalStorage = () => {
 
-    if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
+    if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
         alert("Votre panier est vide")
 
     } else {
@@ -270,9 +270,6 @@ inputCity.addEventListener("input", (e) =>{
 
 
 // Input Mail 
-                    /*
-                    *      !!! VERIFIER LA METHODE AVEC REGEX OU PLUTOT AVEC HTML MAIL !!! 
-                    */
 let inputMail = document.querySelector('input[name="email"]')
 
 inputMail.addEventListener("input", (e) =>{
@@ -300,12 +297,11 @@ class contactForm{
     }
 }
 
-/*
-** !! attention, le addeventlistener est en mouseover, pour les test, le remettre en "click" par la suite !!
-*/
+
+
 //Bouton Commander 
 let btnCommander = document.querySelector("#order")
-btnCommander.addEventListener("mouseover", (e) =>{
+btnCommander.addEventListener("click", (e) =>{
     //création de l'objet de la commande
     let contact = new contactForm(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
     let products = []
@@ -313,6 +309,7 @@ btnCommander.addEventListener("mouseover", (e) =>{
         products.push(arrayCart[i]._id)
     }
     let jsonOrder = JSON.stringify({contact, products})
+
     //requête post pour récupérer l' orderId par l'api
     fetch ("http://localhost:3000/api/products/order", {
         method: "POST",
@@ -324,16 +321,23 @@ btnCommander.addEventListener("mouseover", (e) =>{
     }).then((res) => {
             if (res.ok) {
                 return res.json()
-            } else {
-                console.log("erreur requête order")
             }
-
         //  Si ok, redirection vers page confirmation. orderId doit être affiché mais ne doit pas être conservé/stocké (localStorage).
         }).then((data) => {
-            console.log(data)
             localStorage.clear()
             localStorage.setItem("orderId", data.orderId)
 
             document.location.href = "confirmation.html"
             })
 })
+
+
+
+
+
+            /*
+            *
+            *            Ci-dessous, JS pour confirmation.html
+            * 
+            */
+
