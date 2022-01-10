@@ -7,7 +7,11 @@ let arrayCart = []
 
 let getDataFromLocalStorage = () => {
 
-    if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
+    //voir bouton commander. orderId => redirection page confirmation
+    if (localStorage.getItem("orderId")){
+        preventDefault(getDataFromLocalStorage)
+    
+    } else if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
         alert("Votre panier est vide")
 
     } else {
