@@ -7,18 +7,20 @@ let arrayCart = []
 
 let getDataFromLocalStorage = () => {
 
-    //voir bouton commander. orderId => redirection page confirmation
+    
     if (localStorage.getItem("orderId")){
-        preventDefault(getDataFromLocalStorage)
+        //pour confirmation.html : Affichage Numero de commande
+        let arrayOrder = []
+        arrayOrder = localStorage.getItem("orderId")
+        document.querySelector("#orderId").textContent = arrayOrder
     
     } else if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
         alert("Votre panier est vide")
 
-    } else {
-        if (localStorage.getItem("kanap")) {
+    } else if (localStorage.getItem("kanap")) {
             arrayCart = JSON.parse(localStorage.getItem("kanap"))
-        }
     }
+    
 
     for (let i = 0; i < arrayCart.length; i++) {
         const kanapInCart = arrayCart[i]
@@ -335,8 +337,7 @@ btnCommander.addEventListener("click", (e) =>{
             })
 })
 
-
-
+getDataFromLocalStorage()
 
 
             /*
@@ -344,4 +345,3 @@ btnCommander.addEventListener("click", (e) =>{
             *            Ci-dessous, JS pour confirmation.html
             * 
             */
-
