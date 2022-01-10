@@ -204,7 +204,6 @@ let filterRegex1 = /[^\p{L}\s-]/giu
 let filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 //Regex mail 
-//let regexMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g
 let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 
@@ -291,7 +290,7 @@ inputMail.addEventListener("input", (e) =>{
 
 
 //Constitution d'un objet contact (à partir des données du formulaire).
-class contact {
+class contactForm{
     constructor (firstName, lastName, address, city, email){
         this.firstName = firstName
         this.lastName = lastName 
@@ -307,33 +306,34 @@ class contact {
 //Bouton Commander 
 let btnCommander = document.querySelector("#order")
 btnCommander.addEventListener("mouseover", (e) =>{
-    let contactClient = new contact(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
-    let stringifyContact = JSON.stringify(contactClient)
-    let stringifyArray = JSON.stringify(arrayCart)
-    /*let requestApi = fetch ('http://localhost:3000/api/products/' + "order", {
-        method: "POST", 
-        body: JSON.stringify(arrayKanap) + JSON.stringify(contactClient)
-    })*/
-    console.log(stringifyContact)
-    console.log(stringifyArray)
-    console.log(arrayCart)
-    console.log(contactClient)
-    console.log(localStorage)
-    //console.log(requestApi)
-    //localStorage.setItem("contact", JSON.stringify(contactClient))
-    // faire requete post api ici.
-    /*
-    *   Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName,
-    *   lastName, address, city et email. Le tableau des produits envoyé au back-end doit être un
-    *   array de strings product-ID. Les types de ces champs et leur présence doivent être validés
-    *   avant l’envoi des données au serveur.
-    * 
-    * 
-    *   contact {firstName: 'Jean-Hectôr', lastName: 'Öbervillier', address: '10, Rue des Vacances', city: 'Metaverse', email: 'sdffg@hotmail.com'}
-    *   {kanap: '[{"colors":["Blue","White","Black"],"_id":"107fb5b… gris, deux places","color":"Grey","quantity":1}]', length: 1}
-    */
+    //création de l'objet de la commande
+    let contact = new contactForm(inputFirstName.value, inputLastName.value, inputAddress.value, inputCity.value, inputMail.value)
+    let products = []
+    for (let i = 0; i < arrayCart.length; i++) {
+        products.push(arrayCart[i]._id)
+    }
+    let jsonOrder = JSON.stringify({contact, products})
+    //requête post pour récupérer l' orderId par l'api
+    fetch ("http://localhost:3000/api/products/order", {
+        method: "POST",
+        body: jsonOrder,
+        headers: {
+            "Accept" : "application/json",
+            "Content-Type" : "application/json"
+        }
+    }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                console.log("erreur requête order")
+            }
 
+        //  Si ok, redirection vers page confirmation. orderId doit être affiché mais ne doit pas être conservé/stocké (localStorage).
+        }).then((data) => {
+            console.log(data)
+            localStorage.clear()
+            localStorage.setItem("orderId", data.orderId)
 
-    //localStorage.setItem("total", JSON.stringify(orderArray))
-    //console.log(localStorage)
+            document.location.href = "confirmation.html"
+            })
 })
