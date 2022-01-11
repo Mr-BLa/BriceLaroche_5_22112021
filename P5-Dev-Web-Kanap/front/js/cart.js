@@ -337,11 +337,3 @@ btnCommander.addEventListener("click", (e) =>{
             })
 })
 
-getDataFromLocalStorage()
-
-
-            /*
-            *
-            *            Ci-dessous, JS pour confirmation.html
-            * 
-            */
