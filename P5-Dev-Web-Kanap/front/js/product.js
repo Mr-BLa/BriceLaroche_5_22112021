@@ -83,9 +83,6 @@ const kanapProduct = async (data) => {
 
 
 
-
-
-
     //Div Description
     let description = document.createElement("div")
     infos.appendChild(description)
@@ -187,7 +184,7 @@ searchKanapProduct()
 *      "Ajout au panier"
 */
 
-// Fonction pour s'assurer que le document est correctement généré avant de récupérer les données. 
+// Fonction pour s'assurer que le document est correctement généré avant de récupérer les données pour les ajouter au panier. 
 const docReady = function (fn) {
     // voir si DOM est disponible
     if (document.readyState === "complete" || document.readyState === "interactive") {

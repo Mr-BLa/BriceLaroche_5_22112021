@@ -7,13 +7,13 @@ let arrayCart = []
 
 let getDataFromLocalStorage = () => {
 
-    
+    //pour confirmation.html : Affichage Numero de commande
     if (localStorage.getItem("orderId")){
-        //pour confirmation.html : Affichage Numero de commande
         let arrayOrder = []
         arrayOrder = localStorage.getItem("orderId")
         document.querySelector("#orderId").textContent = arrayOrder
     
+    //pour cart.html : Vérifie et récupère données du panier
     } else if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
         alert("Votre panier est vide")
 
