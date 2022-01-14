@@ -140,7 +140,7 @@ let elementDuPanier = (data) => {
     
 
     // P supprimer
-    let supprTxt = document.createElement("button")
+    let supprTxt = document.createElement("p")
     suppr.appendChild(supprTxt)
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
