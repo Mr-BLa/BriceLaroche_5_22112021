@@ -197,42 +197,68 @@ const docReady = function (fn) {
 
 
 //convertir datas + sauvegarde localStorage + comparaison datas déjà dans localStorage
+//ici on récupère data pour la fction push
 const pushProductInStorage = (data) => {
     let arrayKanap = []
 
+    //si il n'y a rien dans le localStorage, on push data dans tableau, et on créé/actualise le localStorage
     if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined") {
         arrayKanap.push(data)
         localStorage.setItem("kanap", JSON.stringify(arrayKanap))
 
-    } else { 
+    //si il y a quelque chose dans le localStorage, 
+    } else if (localStorage.getItem("kanap")) { 
         //on récupère les datas du local storage => tableau.
-        if (localStorage.getItem("kanap")) {
-            arrayKanap = JSON.parse(localStorage.getItem("kanap"))
+        arrayKanap = JSON.parse(localStorage.getItem("kanap"))
 
-            // array pour repérer doublon (localstorage/nouveau produit select)
-            const alreadyInCart = arrayKanap.filter((kanap) => 
-                kanap.color === data.color && 
-                kanap.productId === data.productId)
+        // array pour repérer doublon (même produit, même couleur: localstorage/nouveau produit select)
+        const alreadyInCart = arrayKanap.filter((kanap) => 
+            kanap.color === data.color && 
+            kanap._id === data._id)
 
+        
+        // Boucle pour repérer si doublon (meme produit, couleur différente): Si doublon on récupère dans [sameProdColorDiff] le dernier élément ajouté au panier
+        let sameProdColorDiff = []
 
-            //si doublon: somme quantité 2 produits ET chgt qtité dans tableau arrayKanap
-                if (alreadyInCart.length) {
-                    let sum = parseInt(data.quantity) + parseInt(alreadyInCart[0].quantity)
-
-                    //retrouver l'élément doublon dans arrayKanap et modifier sa somme
-                    const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
-                    arrayKanap[elementAlreadyInArrayKanap].quantity = sum + ""
-                } else {
-                    arrayKanap.push(data)
-                }
-
-
-            localStorage.setItem("kanap", JSON.stringify(arrayKanap))
+        for (let i = 0; i < arrayKanap.length; i++) {
+            if (arrayKanap[i]._id === data._id && arrayKanap[i].color !== data.color) {
+                sameProdColorDiff.push(data)
+            }
         }
+
+        //si doublon (même produit, même couleur): somme quantité 2 produits ET chgt qtité dans [arrayKanap]
+        if (alreadyInCart.length) {
+            let sum = parseInt(data.quantity) + parseInt(alreadyInCart[0].quantity)
+
+            //retrouver l'élément doublon dans arrayKanap et modifier sa somme
+            const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
+            arrayKanap[elementAlreadyInArrayKanap].quantity = sum + ""
+
+        //si doublon (même produit, couleur différente): ds [arrayKanap], on récupère l'index du produit, et on ajoute le nouveau produit, juste après dans le tableau
+        } else if (sameProdColorDiff.length) {
+            //boucle for, sur [arrayKanap], si l'ID d'un produit dans le panier, est égal à l'ID du nouveau produit ajouté: ajout dans [arrayKanap] du nouveau produit (à index+1 du premier)
+            for (let i = 0; i < arrayKanap.length; i++) {
+                if (arrayKanap[i]._id === sameProdColorDiff[0]._id){
+                    insertAt(arrayKanap, i+1, sameProdColorDiff[0])
+                    break
+                }
+            }
+            
+        // sinon, on peuch le produit dans le tableau
+        } else {
+            arrayKanap.push(data)
+        }
+
+        // actualisation du localStorage avec les données modifiés
+        localStorage.setItem("kanap", JSON.stringify(arrayKanap))
+        
     }
 }
 
-
+// fn pour insérer un élément à un endroit spécifique du tableau
+let insertAt = (array, index, element) => {
+    array.splice(index, 0, element)
+}
 
 docReady(() => {
     const button = document.getElementById("addToCart")
