@@ -197,7 +197,6 @@ const docReady = function (fn) {
 
 
 //convertir datas + sauvegarde localStorage + comparaison datas déjà dans localStorage
-//ici on récupère data pour la fction push
 const pushProductInStorage = (data) => {
     let arrayKanap = []
 
