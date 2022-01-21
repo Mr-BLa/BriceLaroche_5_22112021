@@ -2,8 +2,8 @@
 *       Récupération Id KanapProduct 
 */
 
-let urlSearchParams = (new URL(window.location.href)).searchParams
-let productId = urlSearchParams.get('id')
+const urlSearchParams = (new URL(window.location.href)).searchParams
+const productId = urlSearchParams.get('id')
 let specProduct = null
 
 
@@ -184,17 +184,6 @@ searchKanapProduct()
 *      "Ajout au panier"
 */
 
-// Fonction pour s'assurer que le document est correctement généré avant de récupérer les données pour les ajouter au panier. 
-const docReady = function (fn) {
-    // voir si DOM est disponible
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 1)
-    } else {
-        document.addEventListener('DOMContentLoaded', fn)
-    }
-}
-
 
 //convertir datas + sauvegarde localStorage + comparaison datas déjà dans localStorage
 const pushProductInStorage = (data) => {
@@ -233,6 +222,7 @@ const pushProductInStorage = (data) => {
             const elementAlreadyInArrayKanap = arrayKanap.indexOf(alreadyInCart[0])
             arrayKanap[elementAlreadyInArrayKanap].quantity = sum + ""
 
+
         //si doublon (même produit, couleur différente): ds [arrayKanap], on récupère l'index du produit, et on ajoute le nouveau produit, juste après dans le tableau
         } else if (sameProdColorDiff.length) {
             //boucle for, sur [arrayKanap], si l'ID d'un produit dans le panier, est égal à l'ID du nouveau produit ajouté: ajout dans [arrayKanap] du nouveau produit (à index+1 du premier)
@@ -255,12 +245,24 @@ const pushProductInStorage = (data) => {
 }
 
 // fn pour insérer un élément à un endroit spécifique du tableau
-let insertAt = (array, index, element) => {
+const insertAt = (array, index, element) => {
     array.splice(index, 0, element)
 }
 
+
+// Fonction pour s'assurer que le document est correctement généré avant de récupérer les données pour les ajouter au panier. 
+const docReady = function (fn) {
+    // voir si DOM est disponible
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1)
+    } else {
+        document.addEventListener('DOMContentLoaded', fn)
+    }
+}
+
 docReady(() => {
-    const button = document.getElementById("addToCart")
+    // Au clic sur le bouton "Ajouter au Panier", vérification et récupération des paramètres séléctionnées par l'utilisateur
     document.addEventListener('click', function (e) {
         if (e.target && e.target.id == 'addToCart') {
             // Récupération paramètres du Produit à ajouter au panier

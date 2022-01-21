@@ -5,7 +5,7 @@ let specProduct = null
 let arrayCart = []
 
 
-let getDataFromLocalStorage = () => {
+const getDataFromLocalStorage = () => {
 
     //pour confirmation.html : Affichage Numero de commande
     if (localStorage.getItem("orderId")){
@@ -24,7 +24,7 @@ let getDataFromLocalStorage = () => {
 
     for (let i = 0; i < arrayCart.length; i++) {
         const kanapInCart = arrayCart[i]
-        elementDuPanier(kanapInCart)
+        cartElement(kanapInCart)
     }
 }
 
@@ -33,7 +33,7 @@ let getDataFromLocalStorage = () => {
  *          GENERATION <ARTICLE>
  */
 
-let elementDuPanier = (data) => {
+const cartElement = (data) => {
     specProduct = data
 
     // Article
@@ -145,6 +145,7 @@ let elementDuPanier = (data) => {
     supprTxt.classList.add("deleteItem")
     supprTxt.textContent = "Supprimer"
 
+    // Au clic sur bouton "Supprimer", suppression (à l'affichage et dans les données du panier) du produit
     supprTxt.addEventListener("click", (e)=>{
         if (confirm("Retirer le Produit du Panier?")) {
             //Au clic, retrouver l'index du produit dans l'array Panier. 
@@ -166,28 +167,27 @@ let elementDuPanier = (data) => {
             
         }    
     })
-
+    showTotal()
+}
 
 /*                  
 *           GESTION SOMME & TOTAL
 */      
 
-    //Dans arrayCart, on récupère et multiplie pour chaque élément du panier: le prix du produit et la quantité choisie. On réalise ensuite la somme des résultats obtenus
-    let showTotal = () => {
-        let resultSum = null
-        let quantityOfProductInCart = null
-        for (let i = 0; i < arrayCart.length; i++) {
-            resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
+//Dans arrayCart, on récupère et multiplie pour chaque élément du panier: le prix du produit et la quantité choisie. On réalise ensuite la somme des résultats obtenus
+const showTotal = () => {
+    let resultSum = null
+    let quantityOfProductInCart = null
+    for (let i = 0; i < arrayCart.length; i++) {
+        resultSum += (parseInt(arrayCart[i].price)) * (parseInt(arrayCart[i].quantity))
 
-            //On récupère la somme des produits présents dans le panier
-            quantityOfProductInCart += parseInt(arrayCart[i].quantity)
+        //On récupère la somme des produits présents dans le panier
+        quantityOfProductInCart += parseInt(arrayCart[i].quantity)
 
-            // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
-            document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
-            document.querySelector("#totalPrice").textContent = resultSum
-        }
+        // On transfère ces sommes à <div class="cart__price"> pour afficher le prix
+        document.querySelector("#totalQuantity").textContent = quantityOfProductInCart
+        document.querySelector("#totalPrice").textContent = resultSum
     }
-    showTotal()
 }
 
 
@@ -204,13 +204,13 @@ getDataFromLocalStorage()
 
 
 //filterRegex1: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
-let filterRegex1 = /[^\p{L}\s-]/giu
+const filterRegex1 = /[^\p{L}\s-]/giu
 
 //filterRegex2: filterRegex1 avec en plus: chiffres et ","
-let filterRegex2 = /[^0-9\p{L},\s-]/giu
+const filterRegex2 = /[^0-9\p{L},\s-]/giu
 
 //Regex mail 
-let regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 
 
