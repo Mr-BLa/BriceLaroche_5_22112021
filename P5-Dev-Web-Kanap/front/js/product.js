@@ -244,7 +244,7 @@ const pushProductInStorage = (data) => {
     }
 }
 
-// fn pour insérer un élément à un endroit spécifique du tableau
+// fonction pour insérer un élément à un endroit spécifique du tableau
 const insertAt = (array, index, element) => {
     array.splice(index, 0, element)
 }

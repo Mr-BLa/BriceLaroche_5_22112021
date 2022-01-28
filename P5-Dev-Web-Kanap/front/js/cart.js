@@ -203,11 +203,11 @@ getDataFromLocalStorage()
 */
 
 
-//filterRegex1: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
-const filterRegex1 = /[^\p{L}\s-]/giu
+//Regex Name: trouve tous les caractères qui ne sont pas enregistrés comme: des lettres unicodes, des espaces et des "-"
+const regexName = /[^\p{L}\s-]/giu
 
-//filterRegex2: filterRegex1 avec en plus: chiffres et ","
-const filterRegex2 = /[^0-9\p{L},\s-]/giu
+//Regex Address: regexName avec en plus: chiffres et ","
+const regexAddress = /[^0-9\p{L},\s-]/giu
 
 //Regex mail 
 const regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -219,7 +219,7 @@ const regexMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))
 let inputFirstName = document.querySelector('input[name="firstName"]')
 
 inputFirstName.addEventListener("input", (e) =>{
-    if (filterRegex1.test(e.target.value)) {
+    if (regexName.test(e.target.value)) {
         document.querySelector("#firstNameErrorMsg").textContent = "Le prénom doit uniquement contenir des lettres"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
@@ -234,7 +234,7 @@ inputFirstName.addEventListener("input", (e) =>{
 let inputLastName = document.querySelector('input[name="lastName"]')
 
 inputLastName.addEventListener("input", (e) =>{
-    if (filterRegex1.test(e.target.value)) {
+    if (regexName.test(e.target.value)) {
         document.querySelector("#lastNameErrorMsg").textContent = "Le nom doit uniquement contenir des lettres"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
@@ -249,7 +249,7 @@ inputLastName.addEventListener("input", (e) =>{
 let inputAddress = document.querySelector('input[name="address"]')
 
 inputAddress.addEventListener("input", (e) =>{
-    if (filterRegex2.test(e.target.value)) {
+    if (regexAddress.test(e.target.value)) {
         document.querySelector("#addressErrorMsg").textContent = "Adresse invalide"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
@@ -264,7 +264,7 @@ inputAddress.addEventListener("input", (e) =>{
 let inputCity = document.querySelector('input[name="city"]')
 
 inputCity.addEventListener("input", (e) =>{
-    if (filterRegex1.test(e.target.value)) {
+    if (regexName.test(e.target.value)) {
         document.querySelector("#cityErrorMsg").textContent = "Le nom de la Ville doit uniquement contenir des lettres"
         //désactiver le bouton 
         document.querySelector("#order").setAttribute("disabled", true)
