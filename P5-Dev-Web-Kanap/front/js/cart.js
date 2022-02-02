@@ -12,6 +12,7 @@ const getDataFromLocalStorage = () => {
         let arrayOrder = []
         arrayOrder = localStorage.getItem("orderId")
         document.querySelector("#orderId").textContent = arrayOrder
+        localStorage.clear()
     
     //pour cart.html : Vérifie et récupère données du panier
     } else if (localStorage.getItem("kanap") == null || localStorage.getItem("kanap") == "undefined" ) {
